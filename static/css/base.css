@@ -63,6 +63,8 @@ body {
 .dock {
     display: flex;
     gap: 1rem;
+    width: fit-content;
+    margin: 0 auto;
 }
 
 .pod {
