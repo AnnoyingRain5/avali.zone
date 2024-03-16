@@ -22,6 +22,14 @@ def about():
 def community():
     return render_template("community.jinja")
 
+@app.route("/groups")
+def community_groups():
+    return render_template("groups.jinja")
+
+@app.route("/content")
+def community_content():
+    return render_template("content.jinja")
+
 @app.route("/util/togglelang")
 def togglelang():
     resp = redirect(request.referrer)
