@@ -60,6 +60,11 @@ body {
     gap: 1rem;
 }
 
+.left-dock {
+    display: flex;
+    gap: 1rem;
+}
+
 .dock {
     display: flex;
     gap: 1rem;

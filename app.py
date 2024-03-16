@@ -18,6 +18,10 @@ def hello_world():
 def about():
     return render_template("about.jinja")
 
+@app.route("/community")
+def community():
+    return render_template("community.jinja")
+
 @app.route("/util/togglelang")
 def togglelang():
     resp = redirect(request.referrer)
