@@ -5,10 +5,19 @@
     src: url("/static/fonts/avali-scratch.ttf") format("truetype");
 }
 
-body {
+@media (max-height: 1080px) {
+    body {
+        background-image: url("/static/images/jetpack-avali-1080.webp")
+    }
+}
+@media (min-height: 1081px){
+    body {
+        background-image: url("/static/images/jetpack-avali-1620.webp");
+    }
+}
 
+body {
     background-color: #3794E0; /* to not blind people during loading */
-    background-image: url(https://preview.redd.it/bnt4lyrwx5s81.png?width=3072&format=png&auto=webp&s=7b65ba13cd1f9dfff5ec040cd4e7e103e2af8a1f);
     background-size:cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
