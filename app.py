@@ -12,7 +12,7 @@ def inject_english_mode():
 
 @app.route("/")
 def hello_world():
-    return render_template("index.jinja")\
+    return render_template("index.jinja")
     
 @app.route("/about")
 def about():
