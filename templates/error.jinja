@@ -1,6 +1,6 @@
 {% extends "base.jinja" %}
 
-{% block title %}404{% endblock title %}
+{% block title %}{{error.code}}{% endblock title %}
 
 {% block header %}
 <h1>{{error.code}} - {{error.name}}</h1>
