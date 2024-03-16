@@ -1,0 +1,71 @@
+@font-face {
+    font-family: 'Avali Scratch';
+    font-style: normal;
+    font-weight: 400;
+    src: url("/static/fonts/avali-scratch.ttf") format("truetype");
+}
+
+body {
+
+    background-color: #3794E0; /* to not blind people during loading */
+    background-image: url(https://preview.redd.it/bnt4lyrwx5s81.png?width=3072&format=png&auto=webp&s=7b65ba13cd1f9dfff5ec040cd4e7e103e2af8a1f);
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: 65%;
+
+    line-height: 0.8;
+    font-size: 140%; /* This is because avali scratch renders smaller than english fonts*/
+    font-family: "Avali Scratch";
+
+    color: white;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 1%;
+}
+
+.content {
+    background-color: #6d6d6d91;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    padding: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    border-radius: 10px;
+    margin-bottom: 0.5em;
+}
+
+.navbar {
+    background-color: #6d6d6d77;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.2em;
+    border-radius: 10px;
+    margin: 0.5em auto;
+    width: fit-content;
+    display: flex;
+    gap: 1rem;
+}
+
+.dock {
+    display: flex;
+    gap: 1rem;
+}
+
+.pod {
+    background-color: #8b8b8b3d;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.5em;
+    border-radius: 10px;
+    width: fit-content;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    color: #FF850C;
+}
