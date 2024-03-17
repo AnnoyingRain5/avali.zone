@@ -1,45 +1,76 @@
 from flask import render_template, Blueprint, abort
 import random
 import werkzeug
+import json
 
-scratch = Blueprint('scratch', __name__,
-                        template_folder='templates/scratch')
+wordlist = []
+with open("static/json/wordlist.json") as f:
+    wordlist = json.load(f)["wordlist"]
 
-@scratch.route('/')
+scratch = Blueprint("scratch", __name__, template_folder="templates/scratch")
+
+
+@scratch.route("/")
 def index():
     return render_template("scratch/index.jinja")
 
-@scratch.route('/resources')
+
+@scratch.route("/resources")
 def resources():
     return render_template("scratch/resources.jinja")
+
 
 @scratch.route("/practice/<practicetype>")
 def practice_word(practicetype: str):
     if practicetype in ["word", "letter"]:
-        return render_template("scratch/practice.jinja", practicetype=practicetype.title())
+        return render_template(
+            "scratch/practice.jinja", practicetype=practicetype.title()
+        )
     else:
         abort(404)
 
+
 @scratch.route("/internal/Word-sub")
 def word_practice_sub():
-    words = ["derg", "fluffy", "avali", "art", "scratch", "good", "letter", "word", "game", "fox", "key", "site", "practice", "status", "fair"]
-    prompt = random.choice(words)
-    answers = [prompt, random.choice(words), random.choice(words)]
+    prompt = random.choice(wordlist)
+    answers = [prompt, random.choice(wordlist), random.choice(wordlist)]
     answers.sort()
-    if random.randint(1,2) == 1:
-        return render_template("scratch/practice-input-sub.jinja", prompt=prompt, answers=answers, practicetype="Word")
+    if random.randint(1, 2) == 1:
+        return render_template(
+            "scratch/practice-input-sub.jinja",
+            prompt=prompt,
+            answers=answers,
+            practicetype="Word",
+        )
     else:
-        return render_template("scratch/practice-prompt-sub.jinja", prompt=prompt, answers=answers, practicetype="Word")
+        return render_template(
+            "scratch/practice-prompt-sub.jinja",
+            prompt=prompt,
+            answers=answers,
+            practicetype="Word",
+        )
+
 
 @scratch.route("/internal/Letter-sub")
 def letter_practice_sub():
     prompt = chr(random.randint(65, 90))
     answers = [prompt, chr(random.randint(65, 90)), chr(random.randint(65, 90))]
     answers.sort()
-    if random.randint(1,2) == 1:
-        return render_template("scratch/practice-input-sub.jinja", prompt=prompt, answers=answers, practicetype="Letter")
+    if random.randint(1, 2) == 1:
+        return render_template(
+            "scratch/practice-input-sub.jinja",
+            prompt=prompt,
+            answers=answers,
+            practicetype="Letter",
+        )
     else:
-        return render_template("scratch/practice-prompt-sub.jinja", prompt=prompt, answers=answers, practicetype="Letter")
+        return render_template(
+            "scratch/practice-prompt-sub.jinja",
+            prompt=prompt,
+            answers=answers,
+            practicetype="Letter",
+        )
+
 
 @scratch.errorhandler(werkzeug.exceptions.HTTPException)
 def error(error: werkzeug.exceptions.HTTPException):
