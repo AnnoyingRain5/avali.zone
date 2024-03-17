@@ -1,0 +1,49 @@
+.question {
+    font-family: 'Avali Scratch';
+    font-size: 20vw;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+}
+
+.questionboxholder {
+    display: block;
+}
+
+.questionbox {
+    width: fit-content;
+    padding-left: 5%;
+    padding-right: 5%;
+    background-color: #8b8b8b3d;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(20px);
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    border-radius: 10px;
+    text-align: center;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.dock {
+    display: flex;
+    gap: 1rem;
+    width: fit-content;
+    margin: 0 auto;
+    flex-flow: row wrap;
+}
+
+.pod {
+    background-color: #8b8b8b3d;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.5em;
+    backdrop-filter: blur(20px);
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    border-radius: 10px;
+    flex: 1;
+    min-width: 4cm;
+    width: fit-content;
+    text-align: center;
+}

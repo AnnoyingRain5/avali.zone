@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="/static/css/base.css">
+        <link rel="stylesheet" href="//static.{{server_name}}/css/base.css">
         {% if english %}
-        <link rel="stylesheet" href="/static/css/english.css">
+        <link rel="stylesheet" href="//static.{{server_name}}/css/english.css"">
         {% endif %}
-        <link rel="icon" href="/static/icons/avali.png">
+        <link rel="icon" href="//static.{{server_name}}/icons/avali.png">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <title>Avali Zone - {% block title %}{% endblock title %}</title>
     </head>
     
@@ -30,6 +29,9 @@
             </div>
             <div class="pod">
                 <a href="/content">Content</a>
+            </div>
+            <div class="pod">
+                <a href="//scratch.{{server_name}}">Avali Scratch</a>
             </div>
             <div class="pod">
                 {% if english %}

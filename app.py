@@ -1,14 +1,35 @@
-from flask import Flask, render_template, request, redirect
+from flask import Blueprint, Flask, render_template, request, redirect
 import werkzeug
+import dotenv
+import os
 import werkzeug.exceptions
 
-app = Flask(__name__)
+from blueprints.scratch import scratch
 
+dotenv.load_dotenv()
+app = Flask(__name__, subdomain_matching=True, static_folder=None)
+app.config['SERVER_NAME'] = os.environ.get("SERVER_NAME")
+app.static_folder = 'static'
+app.add_url_rule('/<path:filename>',
+                 subdomain="static",
+                 endpoint='/',
+                 view_func=app.send_static_file)
+
+app.register_blueprint(scratch, subdomain="scratch")
 
 @app.context_processor
 def inject_english_mode():
     return {"english": bool(request.cookies.get("english", False))}
 
+@app.context_processor
+def inject_server_name():
+    return {"server_name": os.environ.get("SERVER_NAME")}
+
+# allow loading all assets from all subdomains
+@app.after_request
+def apply_caching(response):
+    response.headers["Access-Control-Allow-Origin"] = f"*"
+    return response
 
 @app.route("/")
 def hello_world():
@@ -53,8 +74,18 @@ def lore():
 
 
 @app.errorhandler(werkzeug.exceptions.HTTPException)
-def error_404(error: werkzeug.exceptions.HTTPException):
-    return render_template("error.jinja", error=error)
+def error(error: werkzeug.exceptions.HTTPException):
+    server_url = f"{request.scheme}://{os.getenv('SERVER_NAME')}"
+    scratch_url = f"{request.scheme}://scratch.{os.getenv('SERVER_NAME')}"
+
+    if request.host_url.rstrip("/") == server_url:
+        # throw main error page for main site
+        return render_template("error.jinja", error=error)
+    elif request.host_url.rstrip("/") == scratch_url:
+        return render_template("scratch/error.jinja", error=error)
+    else:
+        # if the request is for a different subdomain, and it is invalid, redirect to the main site
+        return redirect(f"{server_url}")
 
 if __name__ == "__main__":
     app.run("0.0.0.0", "9000", debug=True)

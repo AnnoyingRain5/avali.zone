@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="//static.{{server_name}}/css/practice.css">
+    <script src="//static.{{server_name}}/js/practice.js"></script>
+</head>
+
+<body>
+    <div class="content">
+        <div class="questionboxholder">
+            <div class="questionbox">
+                <h1 class="question">{{prompt}}</h1>
+            </div>
+        </div>
+
+        <div class="dock">
+            <div class="pod">
+                <input id="answer">
+                <button id="submit"
+                    onclick="checkanswer(document.getElementById('answer').value, '{{prompt}}')">Submit</button>
+            </div>
+        </div>
+    </div>
+</body>

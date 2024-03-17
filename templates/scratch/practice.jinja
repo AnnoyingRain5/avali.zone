@@ -1,0 +1,18 @@
+{% extends "scratch/base.jinja" %}
+
+{% block title %}{{practicetype}} Practice{% endblock title %}
+
+{% block header %}
+<h1>{{practicetype}} Practice!</h1>
+{% endblock header %}
+{% block content %}
+<div class="content">
+    <iframe id="practiceframe" src="/internal/{{practicetype}}-sub" style="border:none; width: 100%;" scrolling="no"></iframe>
+</div>
+<script>
+    var iframe = document.getElementById("practiceframe");
+    iframe.onload = function () {
+        iframe.height = iframe.contentWindow.document.body.scrollHeight * 1.2;
+    }
+</script>
+{% endblock content %}

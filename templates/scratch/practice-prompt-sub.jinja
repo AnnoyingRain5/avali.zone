@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<head>
+    <link rel="stylesheet" href="//static.{{server_name}}/css/practice.css">
+    <script src="//static.{{server_name}}/js/practice.js"></script>
+</head>
+
+<body>
+    <div class="content">
+        <div class="questionboxholder">
+            <div class="questionbox">
+                <h1 class="question">{{prompt}}</h1>
+            </div>
+        </div>
+
+        <div class="dock">
+            <div class="pod" onclick="checkanswer('{{answers[0]}}', '{{prompt}}')">
+                <p>{{answers[0]}}</p>
+            </div>
+            <div class="pod" onclick="checkanswer('{{answers[1]}}', '{{prompt}}')">
+                <p>{{answers[1]}}</p>
+            </div>
+            <div class="pod" onclick="checkanswer('{{answers[2]}}', '{{prompt}}')">
+                <p>{{answers[2]}}</p>
+            </div>
+        </div>
+    </div>
+</body>
