@@ -1,5 +1,5 @@
 function checkanswer(answer, correctanswer) {
-    if (answer == correctanswer) {
+    if (answer.toLowerCase() == correctanswer.toLowerCase()) {
         alert("Correct!")
     }
     else {
