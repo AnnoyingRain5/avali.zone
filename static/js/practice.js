@@ -1,6 +1,6 @@
 function checkanswer(answer, correctanswer) {
     if (answer.toLowerCase() == correctanswer.toLowerCase()) {
-        alert("Correct!")
+        //alert("Correct!")
     }
     else {
         alert("Incorrect! The correct answer was " + correctanswer)
