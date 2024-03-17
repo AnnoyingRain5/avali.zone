@@ -33,7 +33,13 @@ def practice_word(practicetype: str):
 @scratch.route("/internal/Word-sub")
 def word_practice_sub():
     prompt = random.choice(wordlist)
-    answers = [prompt, random.choice(wordlist), random.choice(wordlist)]
+    answers = [prompt]
+    for _ in range(2):
+        while True:
+            tempanswer = random.choice(wordlist)
+            if tempanswer != prompt:
+                answers.append(tempanswer)
+                break
     answers.sort()
     if random.randint(1, 2) == 1:
         return render_template(
@@ -54,7 +60,13 @@ def word_practice_sub():
 @scratch.route("/internal/Letter-sub")
 def letter_practice_sub():
     prompt = chr(random.randint(65, 90))
-    answers = [prompt, chr(random.randint(65, 90)), chr(random.randint(65, 90))]
+    answers = [prompt]
+    for _ in range(2):
+        while True:
+            tempanswer = chr(random.randint(65, 90))
+            if tempanswer != prompt:
+                answers.append(tempanswer)
+                break
     answers.sort()
     if random.randint(1, 2) == 1:
         return render_template(
