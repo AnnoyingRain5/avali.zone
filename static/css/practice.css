@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Avali Scratch';
+    font-style: normal;
+    font-weight: 400;
+    src: url("/fonts/avali-scratch.ttf") format("truetype");
+}
+
 .question {
     font-family: 'Avali Scratch';
     font-size: 20vw;
