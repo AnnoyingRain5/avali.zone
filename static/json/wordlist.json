@@ -29,6 +29,22 @@
                 "person",
                 "pack",
                 "family",
-                "kit"
+                "kit",
+                "wing",
+                "feather",
+                "egg",
+                "hatchery",
+                "avalon",
+                "fly",
+                "flight",
+                "tail",
+                "moon",
+                "illuminate",
+                "crystal",
+                "drone",
+                "nanite",
+                "guardian",
+                "nexus",
+                "oracle"
         ]
 }
