@@ -41,7 +41,7 @@ def word_practice_sub():
     for _ in range(2):
         while True:
             tempanswer = random.choice(wordlist)
-            if tempanswer != prompt:
+            if tempanswer not in answers:
                 answers.append(tempanswer)
                 break
     answers.sort()
