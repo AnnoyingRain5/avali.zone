@@ -5,6 +5,7 @@ function checkanswer(answer, correctanswer) {
     else {
         alert("Incorrect! The correct answer was " + correctanswer)
     }
+    document.cookie = "lastprompt=" + answer
     location.reload()
 }
 

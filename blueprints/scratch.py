@@ -1,4 +1,4 @@
-from flask import render_template, Blueprint, abort
+from flask import render_template, Blueprint, abort, request
 import random
 import werkzeug
 import json
@@ -32,7 +32,11 @@ def practice_word(practicetype: str):
 
 @scratch.route("/internal/Word-sub")
 def word_practice_sub():
-    prompt = random.choice(wordlist)
+    prompt = ""
+    while True:
+        prompt = random.choice(wordlist)
+        if prompt != request.cookies["lastprompt"]:
+            break
     answers = [prompt]
     for _ in range(2):
         while True:
@@ -59,12 +63,16 @@ def word_practice_sub():
 
 @scratch.route("/internal/Letter-sub")
 def letter_practice_sub():
-    prompt = chr(random.randint(65, 90))
+    prompt = ""
+    while True:
+        prompt = chr(random.choice(list(range(65, 91)) + list(range(48,58))))
+        if prompt != request.cookies["lastprompt"]:
+            break
     answers = [prompt]
     for _ in range(2):
         while True:
             tempanswer = chr(random.randint(65, 90))
-            if tempanswer != prompt:
+            if tempanswer not in answers:
                 answers.append(tempanswer)
                 break
     answers.sort()
