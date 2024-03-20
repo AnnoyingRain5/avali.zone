@@ -35,7 +35,12 @@ def word_practice_sub():
     prompt = ""
     while True:
         prompt = random.choice(wordlist)
-        if prompt != request.cookies["lastprompt"]:
+        lastprompt = None
+        try:
+            lastprompt = request.cookies["lastprompt"]
+        except KeyError:
+            pass
+        if prompt != lastprompt:
             break
     answers = [prompt]
     for _ in range(2):
@@ -66,7 +71,12 @@ def letter_practice_sub():
     prompt = ""
     while True:
         prompt = chr(random.choice(list(range(65, 91)) + list(range(48,58))))
-        if prompt != request.cookies["lastprompt"]:
+        lastprompt = None
+        try:
+            lastprompt = request.cookies["lastprompt"]
+        except KeyError:
+            pass
+        if prompt != lastprompt:
             break
     answers = [prompt]
     for _ in range(2):
