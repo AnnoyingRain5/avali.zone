@@ -10,6 +10,7 @@
     font-size: 20vw;
     margin-top: 10vh;
     margin-bottom: 10vh;
+    user-select: none;
 }
 
 .questionboxholder {
