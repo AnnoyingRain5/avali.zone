@@ -80,9 +80,9 @@ def error(error: werkzeug.exceptions.HTTPException):
 
     if request.host_url.rstrip("/") == server_url:
         # throw main error page for main site
-        return render_template("error.jinja", error=error)
+        return render_template("error.jinja", error=error), error.code
     elif request.host_url.rstrip("/") == scratch_url:
-        return render_template("scratch/error.jinja", error=error)
+        return render_template("scratch/error.jinja", error=error), error.code
     else:
         # if the request is for a different subdomain, and it is invalid, redirect to the main site
         return redirect(f"{server_url}")
