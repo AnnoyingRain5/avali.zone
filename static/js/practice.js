@@ -1,44 +1,38 @@
-function checkanswer(answer, correctanswer) {
-    if (answer.toLowerCase() == correctanswer.toLowerCase()) {
-        //alert("Correct!")
-    }
-    else {
-        alert("Incorrect! The correct answer was " + correctanswer)
-    }
-    document.cookie = "lastprompt=" + answer
-    location.reload()
-}
+var score = 0
 
-function init() {
-    var input = document.getElementById("answer")
-    // if this is an input subpage
-    if (input != null) {
-        input.value = ""
-        input.focus()
-        input.addEventListener("keypress", function (event) {
-            // If the user presses the "Enter" key on the keyboard
-            if (event.key === "Enter") {
-                // Cancel the default action, if needed
-                event.preventDefault()
-                // Trigger the button element with a click
-                document.getElementById("submit").click()
-            }
-        })
-    }
-    // if this is a multiple-choice subpage
-    else {
-        document.addEventListener("keypress", function (event) {
-            if (event.key === "1") {
-                document.getElementById("answer1").click()
-            }
-            else if (event.key === "2") {
-                document.getElementById("answer2").click()
-            }
-            else if (event.key === "3") {
-                document.getElementById("answer3").click()
-            }
-        })
-    }
-}
 
 window.onload = init;
+window.document.addEventListener('Incorrect', handleIncorrect, false)
+window.document.addEventListener('Correct', handleCorrect, false)
+
+function init(){
+    scoretext = document.getElementById("score")
+    correct = document.getElementById("correct")
+    incorrect = document.getElementById("incorrect")
+    milestone_x10 = document.getElementById("milestone_x10")
+    iframe = document.getElementById("practiceframe");
+    
+    iframe.height = iframe.contentWindow.document.body.scrollHeight * 1.2;
+}    
+
+window.onresize = function() {
+    iframe.height = iframe.contentWindow.document.body.scrollHeight * 1.2;
+}
+
+function handleIncorrect() {
+    incorrect.fastSeek(0)
+    incorrect.play()
+    score = 0
+    scoretext.innerText = "Score: " + score
+}
+
+function handleCorrect() {
+    correct.fastSeek(0)
+    correct.play()
+    score += 1
+    scoretext.innerText = "Score: " + score
+    if (score % 10 == 0) {
+        milestone_x10.fastSeek(0)
+        milestone_x10.play(0)
+    }
+}

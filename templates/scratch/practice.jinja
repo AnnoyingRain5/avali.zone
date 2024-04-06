@@ -1,22 +1,35 @@
 {% extends "scratch/base.jinja" %}
 
-{% block title %}{{practicetype}} Practice{% endblock title %}
+{% block title %}{{practicetype}} Practice {% endblock title %}
+{% block head %}
+<script src="//static.{{server_name}}/js/practice.js"></script>
+<audio id="correct">
+    <source src="//static.{{server_name}}/sounds/correct.mp3" type="audio/mpeg">
+</audio>
+<audio id="incorrect">
+    <source src="//static.{{server_name}}/sounds/incorrect.mp3" type="audio/mpeg">
+</audio>
+<audio id="milestone_x10">
+    <source src="//static.{{server_name}}/sounds/milestone_x10.mp3" type="audio/mpeg">
+</audio>
+{% endblock head %}
 
 {% block header %}
 <h1>{{practicetype}} Practice!</h1>
 {% endblock header %}
 {% block content %}
 <div class="content">
-    <p style="text-align: center;">
-        Tip: You can use the number keys (1,2,3) to select multiple-choice options! <br>
-        You may need to click on the question to focus it for this to work
-    </p>
-    <iframe id="practiceframe" src="/internal/{{practicetype}}-sub" style="border:none; width: 100%;" scrolling="no"></iframe>
+    <div class="dock">
+        <p style="text-align: center;">
+            Tip: You can use the number keys (1,2,3) to select multiple-choice options! <br>
+            You may need to click on the question to focus it for this to work
+        </p>
+        <div class="pod" style="">
+            <p id="score">Score: 0</p>
+        </div>
+    </div>
+
+    <iframe id="practiceframe" src="/internal/{{practicetype}}-sub" style="border:none; width: 100%;"
+        scrolling="no"></iframe>
 </div>
-<script>
-    var iframe = document.getElementById("practiceframe");
-    iframe.onload = function () {
-        iframe.height = iframe.contentWindow.document.body.scrollHeight * 1.2;
-    }
-</script>
 {% endblock content %}
