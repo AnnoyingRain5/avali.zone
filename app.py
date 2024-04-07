@@ -53,7 +53,11 @@ def community_content():
 
 @app.route("/util/togglelang")
 def togglelang():
-    resp = redirect(request.referrer)
+    print(request.referrer)
+    if request.referrer != None:
+        resp = redirect(request.referrer)
+    else:
+        resp = redirect("/")
     if request.cookies.get("english", False):
         resp.delete_cookie("english")
     else:
