@@ -1,6 +1,7 @@
 {% extends "scratch/base.jinja" %}
 
 {% block title %}{{practicetype}} Practice {% endblock title %}
+{% block description %}Learn how to read Avali Scratch with our interactive {{practicetype.lower()}} drills!{% endblock description %}
 {% block head %}
 <script src="//static.{{server_name}}/js/practice.js"></script>
 <audio id="correct">
