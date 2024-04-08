@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, Response
+import json
 import requests
 import werkzeug
 import dotenv
@@ -7,12 +8,17 @@ import werkzeug.exceptions
 
 from blueprints.scratch import scratch
 
+endpoint_stats = {}
+
 dotenv.load_dotenv()
 app = Flask(__name__, subdomain_matching=True, static_folder=None)
 app.config["SERVER_NAME"] = os.environ.get("SERVER_NAME")
 app.static_folder = "static"
 app.add_url_rule(
-    "/<path:filename>", subdomain="static", endpoint="/", view_func=app.send_static_file
+    "/<path:filename>",
+    subdomain="static",
+    endpoint="static",
+    view_func=app.send_static_file,
 )
 
 app.register_blueprint(scratch, subdomain="scratch")
@@ -28,6 +34,14 @@ def inject_server_name():
     return {"server_name": os.environ.get("SERVER_NAME")}
 
 
+@app.before_request
+def log_request():
+    if endpoint_stats.get(request.endpoint, None) is None:
+        endpoint_stats[request.endpoint] = 1
+    else:
+        endpoint_stats[request.endpoint] += 1
+
+
 # allow loading all assets from all subdomains
 @app.after_request
 def apply_caching(response):
@@ -36,8 +50,16 @@ def apply_caching(response):
 
 
 @app.route("/")
-def hello_world():
+def index():
     return render_template("index.jinja")
+
+
+@app.route("/stats")
+def stats():
+    resp = Response(
+        json.dumps(endpoint_stats, sort_keys=True), mimetype="application/json"
+    )
+    return resp
 
 
 @app.route("/about")
