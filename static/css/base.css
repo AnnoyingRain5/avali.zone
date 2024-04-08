@@ -45,6 +45,32 @@ body {
     padding-top: 1%;
 }
 
+textarea {
+    /* font stuff that I shouldn't even need to do */
+    line-height: 0.8;
+    font-size: 80%; /* This is because avali scratch renders smaller than english fonts*/
+    font-family: "Avali Scratch";
+
+    background-color: #8edbff73;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+input {
+    /* font stuff that I shouldn't even need to do */
+    line-height: 0.8;
+    font-size: 80%; /* This is because avali scratch renders smaller than english fonts*/
+    font-family: "Avali Scratch";
+
+    background-color: #8edbff73;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
 h1 {
     text-align: center;
     color: #FF850C;
@@ -53,6 +79,8 @@ h1 {
 h2{
     text-align: center;
 }
+
+
 
 .content {
     background-color: #6d6d6d91;

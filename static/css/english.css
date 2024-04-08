@@ -3,3 +3,15 @@ body {
     font-size: 100%;
     line-height: normal;
 }
+
+textarea {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: normal;
+    font-size: auto; /* This is because avali scratch renders smaller than english fonts*/
+}
+
+input {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: normal;
+    font-size: auto; /* This is because avali scratch renders smaller than english fonts*/
+}

@@ -1,4 +1,5 @@
-from flask import Blueprint, Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect
+import requests
 import werkzeug
 import dotenv
 import os
@@ -8,22 +9,24 @@ from blueprints.scratch import scratch
 
 dotenv.load_dotenv()
 app = Flask(__name__, subdomain_matching=True, static_folder=None)
-app.config['SERVER_NAME'] = os.environ.get("SERVER_NAME")
-app.static_folder = 'static'
-app.add_url_rule('/<path:filename>',
-                 subdomain="static",
-                 endpoint='/',
-                 view_func=app.send_static_file)
+app.config["SERVER_NAME"] = os.environ.get("SERVER_NAME")
+app.static_folder = "static"
+app.add_url_rule(
+    "/<path:filename>", subdomain="static", endpoint="/", view_func=app.send_static_file
+)
 
 app.register_blueprint(scratch, subdomain="scratch")
+
 
 @app.context_processor
 def inject_english_mode():
     return {"english": bool(request.cookies.get("english", False))}
 
+
 @app.context_processor
 def inject_server_name():
     return {"server_name": os.environ.get("SERVER_NAME")}
+
 
 # allow loading all assets from all subdomains
 @app.after_request
@@ -31,25 +34,63 @@ def apply_caching(response):
     response.headers["Access-Control-Allow-Origin"] = f"*"
     return response
 
+
 @app.route("/")
 def hello_world():
     return render_template("index.jinja")
-    
+
+
 @app.route("/about")
 def about():
     return render_template("about.jinja")
+
 
 @app.route("/community")
 def community():
     return render_template("community.jinja")
 
+
 @app.route("/groups")
 def community_groups():
     return render_template("groups.jinja")
 
+
 @app.route("/content")
 def community_content():
     return render_template("content.jinja")
+
+
+@app.route("/contact", methods=["GET", "POST"])
+def contact():
+    if request.method == "GET":
+        return render_template("contact.jinja")
+    else:
+        # it's a POST request! Send it to our discord webhook
+        requests.post(
+            os.environ.get("MESSENGER_WEBHOOK_URL"),
+            json={
+                "username": "avali.zone messenger",
+                "avatar_url": f"https://static.{os.environ.get('SERVER_NAME')}/icons/avali.png",
+                "content": f"<@{os.environ.get('OWNER_USER_ID')}>",
+                "embeds": [
+                    {
+                        "author": {"name": request.form.get("name")},
+                        "title": f"New {request.form.get('reason')}",
+                        "description": request.form.get("message"),
+                        "fields": [
+                            {
+                                "name": "Contact",
+                                "value": request.form.get("contact"),
+                                "inline": True,
+                            },
+                        ],
+                    }
+                ],
+            },
+        )
+        # Done! Now let's give the user a nice page
+        return render_template("contact_success.jinja")
+
 
 @app.route("/util/togglelang")
 def togglelang():
@@ -64,13 +105,16 @@ def togglelang():
         resp.set_cookie("english", "True")
     return resp
 
+
 @app.route("/lore/wiki")
 def wiki():
     return render_template("lore/wiki.jinja")
 
+
 @app.route("/lore/book")
 def book():
     return render_template("lore/book.jinja")
+
 
 @app.route("/lore")
 def lore():
@@ -90,6 +134,7 @@ def error(error: werkzeug.exceptions.HTTPException):
     else:
         # if the request is for a different subdomain, and it is invalid, redirect to the main site
         return redirect(f"{server_url}")
+
 
 if __name__ == "__main__":
     app.run("0.0.0.0", "9000", debug=True)
