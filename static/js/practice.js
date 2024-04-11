@@ -13,6 +13,10 @@ function init(){
     iframe = document.getElementById("practiceframe");
     
     iframe.height = iframe.contentWindow.document.body.scrollHeight * 1.2;
+    
+    iframe.onload = function () {
+        iframe.height = iframe.contentWindow.document.body.scrollHeight * 1.2;
+    }
 }    
 
 window.onresize = function() {
