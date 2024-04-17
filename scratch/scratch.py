@@ -1,13 +1,14 @@
 from flask import render_template, Blueprint, abort, request
 import random
-import werkzeug
 import json
+
+import werkzeug
 
 wordlist = []
 with open("static/json/wordlist.json") as f:
     wordlist = json.load(f)["wordlist"]
 
-scratch = Blueprint("scratch", __name__, template_folder="templates/scratch")
+scratch = Blueprint("scratch", __name__, template_folder="templates", subdomain="scratch")
 
 
 @scratch.route("/")
@@ -101,7 +102,11 @@ def letter_practice_sub():
             practicetype="Letter",
         )
 
+@scratch.route('/<first>')
+@scratch.route('/<first>/<path:rest>')
+def catchall(first=None, rest=None):
+    abort(404)
 
 @scratch.errorhandler(werkzeug.exceptions.HTTPException)
 def error(error: werkzeug.exceptions.HTTPException):
-    return render_template("/scratch/error.jinja", error=error)
+    return render_template("scratch/error.jinja", error=error)
