@@ -19,4 +19,4 @@ EXPOSE 8000
 # configure the container to run in an executed manner
 ENTRYPOINT [ "waitress-serve" ]
 
-CMD ["app:app"]
+CMD [ "app:app" ]

@@ -70,7 +70,7 @@ def word_practice_sub():
 def letter_practice_sub():
     prompt = ""
     while True:
-        prompt = chr(random.choice(list(range(65, 91)) + list(range(48,58))))
+        prompt = chr(random.choice(list(range(65, 91)) + list(range(48, 58))))
         lastprompt = None
         try:
             lastprompt = request.cookies["lastprompt"]

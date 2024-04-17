@@ -10,14 +10,15 @@
         background: url("/images/jetpack-avali-1080.webp") no-repeat center center;
     }
 }
-@media (min-height: 1081px){
+
+@media (min-height: 1081px) {
     body::before {
         background: url("/images/jetpack-avali-1620.webp") no-repeat center center;
     }
 }
 
 /* Three cheers to Apple for making me do this! */
-body::before{
+body::before {
     content: "";
     display: block;
     position: fixed;
@@ -34,9 +35,11 @@ body::before{
 }
 
 body {
-    background-color: #3794E0; /* to not blind people during loading */
+    background-color: #3794E0;
+    /* to not blind people during loading */
     line-height: 0.8;
-    font-size: 140%; /* This is because avali scratch renders smaller than english fonts*/
+    font-size: 140%;
+    /* This is because avali scratch renders smaller than english fonts*/
     font-family: "Avali Scratch";
 
     color: white;
@@ -48,7 +51,8 @@ body {
 textarea {
     /* font stuff that I shouldn't even need to do */
     line-height: 0.8;
-    font-size: 80%; /* This is because avali scratch renders smaller than english fonts*/
+    font-size: 80%;
+    /* This is because avali scratch renders smaller than english fonts*/
     font-family: "Avali Scratch";
 
     background-color: #8edbff73;
@@ -61,7 +65,8 @@ textarea {
 input {
     /* font stuff that I shouldn't even need to do */
     line-height: 0.8;
-    font-size: 80%; /* This is because avali scratch renders smaller than english fonts*/
+    font-size: 80%;
+    /* This is because avali scratch renders smaller than english fonts*/
     font-family: "Avali Scratch";
 
     background-color: #8edbff73;
@@ -76,7 +81,7 @@ h1 {
     color: #FF850C;
 }
 
-h2{
+h2 {
     text-align: center;
 }
 
