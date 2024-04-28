@@ -2,7 +2,7 @@
     font-family: 'Avali Scratch';
     font-style: normal;
     font-weight: 400;
-    src: url("/fonts/avali-scratch.ttf") format("truetype");
+    src: url("../fonts/avali-scratch.ttf") format("truetype");
 }
 
 .question {

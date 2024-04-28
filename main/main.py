@@ -2,11 +2,11 @@ import os
 from flask import Blueprint, render_template, request, redirect, Response
 import json
 import requests
-import werkzeug.exceptions
+import auth
 
 endpoint_stats = {}
 
-main = Blueprint("main", __name__, template_folder="templates", subdomain="")
+main = Blueprint("main", __name__, template_folder="templates", url_prefix="")
 
 
 @main.before_request
@@ -59,7 +59,7 @@ def _contact():
             os.environ.get("MESSENGER_WEBHOOK_URL"),
             json={
                 "username": "avali.zone messenger",
-                "avatar_url": f"https://static.{os.environ.get('SERVER_NAME')}/icons/avali.png",
+                "avatar_url": f"/static/icons/avali.png",
                 "content": f"<@{os.environ.get('OWNER_USER_ID')}>",
                 "embeds": [
                     {
@@ -90,6 +90,14 @@ def wiki():
 def book():
     return render_template("lore/book.jinja")
 
+@main.route("/panel")
+@auth.requires_auth([])
+def panel(userinfo, user):
+    permissions = {}
+    if auth.has_permission(user, "golink_approved"):
+        permissions["golinks"] = "/go"
+
+    return render_template("panel.jinja", permissions=permissions, userinfo=userinfo)
 
 @main.route("/lore")
 def lore():

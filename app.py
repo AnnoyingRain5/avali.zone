@@ -1,23 +1,24 @@
 import dotenv
 from flask import Flask, render_template, request
+from werkzeug.middleware.proxy_fix import ProxyFix
+from flask_dance.contrib.google import make_google_blueprint, google
 import os
-
 import werkzeug
+
 from scratch import scratch
 from main import main
 from util import util
+from go import go
+
+import db
 
 
 dotenv.load_dotenv()
-app = Flask(__name__, subdomain_matching=True, static_folder=None)
-app.config["SERVER_NAME"] = os.environ.get("SERVER_NAME")
-app.static_folder = "static"
-app.add_url_rule(
-    "/<path:filename>",
-    subdomain="static",
-    endpoint="static",
-    view_func=app.send_static_file,
-)
+app = Flask(__name__, subdomain_matching=True)
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+app.wsgi_app = ProxyFix(app.wsgi_app)
+db.init_app(app)
+
 
 # allow loading all assets from all subdomains
 @app.after_request
@@ -29,14 +30,19 @@ def apply_caching(response):
 def inject_english_mode():
     return {"english": bool(request.cookies.get("english", False))}
 
-@app.context_processor
-def inject_server_name():
-    return {"server_name": os.environ.get("SERVER_NAME")}
+# this uses the userinfo.profile scope, which provides:
+# id, name, given_name, picture (which is a url to the profile picture) and locale
+googleprint = make_google_blueprint(
+    client_id=os.environ.get("GOOGLE_CLIENT_ID"),
+    client_secret=os.environ.get("GOOGLE_CLIENT_SECRET"),
+    offline=True
+)
 
 app.register_blueprint(main)
 app.register_blueprint(scratch)
 app.register_blueprint(util)
-
+app.register_blueprint(go)
+app.register_blueprint(googleprint, url_prefix="/login")
 
 # default error handler
 @app.errorhandler(werkzeug.exceptions.HTTPException)

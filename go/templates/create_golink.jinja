@@ -1,0 +1,24 @@
+{% extends "base.jinja" %}
+
+{% block title %} Contact {% endblock title %}
+
+{% block header %}
+<h1>Golink</h1>
+{% endblock header %}
+
+{% block content %}
+<div class="content">
+    <p>Hey {{userinfo["name"]}}, create your golink below:</p>
+    <p>
+    <form action="." method="post">
+        <label for="golink">The golink:</label><br>
+        https://avali.zone/go/<input required type="text" id="golink" name="golink"><br>
+
+        <label for="location">Redirects to:</label><br>
+        <input required type="text" id="location" name="location"><br>
+
+        <input type="submit" value="Submit">
+    </form>
+    </p>
+</div>
+{% endblock content %}

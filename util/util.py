@@ -1,10 +1,10 @@
-from flask import redirect, render_template, Blueprint, abort, request
+from flask import redirect, Blueprint, request
+import os
 
-util = Blueprint("util", __name__, template_folder="templates", subdomain="", url_prefix="/util")
+util = Blueprint("util", __name__, template_folder="templates", url_prefix="/util")
 
 @util.route("/togglelang")
 def togglelang():
-    print(request.referrer)
     if request.referrer != None:
         resp = redirect(request.referrer)
     else:

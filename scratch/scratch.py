@@ -8,7 +8,7 @@ wordlist = []
 with open("static/json/wordlist.json") as f:
     wordlist = json.load(f)["wordlist"]
 
-scratch = Blueprint("scratch", __name__, template_folder="templates", subdomain="scratch")
+scratch = Blueprint("scratch", __name__, template_folder="templates", url_prefix="/scratch")
 
 
 @scratch.route("/")

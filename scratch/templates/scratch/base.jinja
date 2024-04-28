@@ -1,38 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.jinja" %}
 
-<head>
-    <link rel="stylesheet" href="//static.{{server_name}}/css/base.css">
-    <link rel="stylesheet" href="//static.{{server_name}}/css/english.css">
-    <link rel="icon" href="//static.{{server_name}}/icons/avali.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avali Scratch - {% block title %}{% endblock title %}</title>
-    <meta name="description" content="{% block description %}{% endblock description %}">
-    {% block head %}{% endblock head %}
-</head>
+{% block head %}
+<link rel="stylesheet" href="/static/css/english.css">
+{% endblock head %}
 
-<body>
-    <div class="content">
-        {% block header %}{% endblock header %}
-    </div>
+{% block nav_override %}
     <div class="navbar">
         <div class="pod">
-            <a href="/">Home</a>
+            <a href="/scratch">Home</a>
         </div>
         <div class="pod">
-            <a href="/practice/letter">Letter practice</a>
+            <a href="/scratch/practice/letter">Letter practice</a>
         </div>
         <div class="pod">
-            <a href="/practice/word">Word practice</a>
+            <a href="/scratch/practice/word">Word practice</a>
         </div>
         <div class="pod">
-            <a href="/resources">Resources</a>
+            <a href="/scratch/resources">Resources</a>
         </div>
         <div class="pod">
-            <a href="//{{server_name}}">Back to main site</a>
+            <a href="/">Back to main site</a>
         </div>
     </div>
-    {% block content %}{% endblock content %}
-</body>
-
-</html>
+    {% endblock nav_override %}

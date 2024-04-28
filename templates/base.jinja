@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="//static.{{server_name}}/css/base.css">
+    <link rel="stylesheet" href="/static/css/base.css">
     {% if english %}
-    <link rel="stylesheet" href="//static.{{server_name}}/css/english.css"">
+    <link rel="stylesheet" href="/static/css/english.css"">
         {% endif %}
-        <link rel=" icon" href="//static.{{server_name}}/icons/avali.png">
+        <link rel=" icon" href="/static/icons/avali.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avali Zone - {% block title %}{% endblock title %}</title>
     <meta name="description" content="{% block description %}{% endblock description %}">
@@ -17,6 +17,7 @@
     <div class="content">
         {% block header %}{% endblock header %}
     </div>
+    {% block nav_override %}
     <div class="navbar">
         <div class="pod">
             <a href="/">Home</a>
@@ -37,7 +38,10 @@
             <a href="/content">Content</a>
         </div>
         <div class="pod">
-            <a href="//scratch.{{server_name}}">Avali Scratch</a>
+            <a href="/scratch">Avali Scratch</a>
+        </div>
+        <div class="pod">
+            <a href="/panel">Panel</a>
         </div>
         <div class="pod">
             {% if english %}
@@ -48,6 +52,8 @@
             {% endif %}
         </div>
     </div>
+    {% endblock nav_override %}
+    
     {% block content %}{% endblock content %}
 </body>
 
