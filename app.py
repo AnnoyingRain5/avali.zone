@@ -9,6 +9,7 @@ from scratch import scratch
 from main import main
 from util import util
 from go import go
+from admin import admin
 
 import db
 
@@ -42,6 +43,7 @@ app.register_blueprint(main)
 app.register_blueprint(scratch)
 app.register_blueprint(util)
 app.register_blueprint(go)
+app.register_blueprint(admin)
 app.register_blueprint(googleprint, url_prefix="/login")
 
 # default error handler

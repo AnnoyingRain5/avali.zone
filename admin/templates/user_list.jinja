@@ -1,0 +1,26 @@
+{% extends "base.jinja" %}
+
+{% block title %} User List {% endblock title %}
+
+{% block header %}
+<h1>Admin: User List</h1>
+{% endblock header %}
+
+{% block content %}
+<div class="content">
+    <table>
+        <tr>
+            {% for header in headers %}
+            <th>{{header[1]}}</th>
+            {% endfor %}
+        </tr>
+        {% for user in users %}
+        <tr>
+            {% for data in user %}
+            <td>{{data}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock content %}

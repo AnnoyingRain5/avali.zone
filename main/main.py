@@ -96,6 +96,8 @@ def panel(userinfo, user):
     permissions = {}
     if auth.has_permission(user, "golink_approved"):
         permissions["golinks"] = "/go"
+    if auth.has_permission(user, "admin"):
+        permissions["User list"] = "/admin/users"
 
     return render_template("panel.jinja", permissions=permissions, userinfo=userinfo)
 
