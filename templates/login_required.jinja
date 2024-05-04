@@ -1,0 +1,19 @@
+{% extends "base.jinja" %}
+
+{% block title %}Login required{% endblock title %}
+
+{% block header %}
+<h1>You'll need to log in to access that page</h1>
+{% endblock header %}
+{% block content %}
+<div class="content">
+    <h2>Please log in to continue</h2>
+    <div class="dock">
+        <a href="{{url_for('google.login')}}">
+            <div class="pod">
+                Log in with google
+            </div>
+        </a>
+    </div>
+</div>
+{% endblock content %}

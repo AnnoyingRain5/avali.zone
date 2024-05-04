@@ -36,7 +36,9 @@ def inject_english_mode():
 googleprint = make_google_blueprint(
     client_id=os.environ.get("GOOGLE_CLIENT_ID"),
     client_secret=os.environ.get("GOOGLE_CLIENT_SECRET"),
-    offline=True
+    offline=True,
+    redirect_url="/panel",
+    scope="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid", 
 )
 
 app.register_blueprint(main)
