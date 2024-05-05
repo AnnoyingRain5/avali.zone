@@ -12,6 +12,8 @@ RUN pip install -r requirements.txt
 
 # copy every content from the local file to the image
 COPY . /app
+VOLUME /app/db
+RUN ["flask", "init-db"]
 
 # expose the port
 EXPOSE 8000
