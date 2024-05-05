@@ -17,6 +17,4 @@ COPY . /app
 EXPOSE 8000
 
 # configure the container to run in an executed manner
-ENTRYPOINT [ "waitress-serve" ]
-
-CMD [ "app:app" ]
+CMD [ "waitress-serve" "--url-scheme=https" "app:app" ]
