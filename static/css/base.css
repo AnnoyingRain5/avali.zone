@@ -107,6 +107,18 @@ table{
     margin-bottom: 0.5em;
 }
 
+.flash {
+    text-align: center;
+}
+
+.flash_success {
+    background-color: #0dbc0191;
+}
+
+.flash_error {
+    background-color: #bc010191;
+}
+
 .navbar {
     background-color: #6d6d6d77;
     backdrop-filter: blur(5px);

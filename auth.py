@@ -29,6 +29,7 @@ def requires_auth(requirements: list[str]):
                         if not user["golink_approved"]:
                             abort(403)
             return f(*args, **kwargs, userinfo=userinfo, user=user)
+        wrapper.__name__ = f.__name__
         return wrapper
     return decorator
 

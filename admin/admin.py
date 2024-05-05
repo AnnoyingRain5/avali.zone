@@ -18,5 +18,5 @@ def user_list(user, userinfo):
 def golink_list():
     headers = db.get_db().execute("PRAGMA table_info(golinks)").fetchall()
     golinks = db.get_db().execute("SELECT * FROM golinks").fetchall()
-    return render_template("list.jinja", items=golinks, headers=headers, type="golinks")
+    return render_template("list.jinja", items=golinks, headers=headers, type="golink")
 

@@ -13,12 +13,18 @@
             {% for header in headers %}
             <th>{{header[1]}}</th>
             {% endfor %}
+            {% if type == "golink" %}
+            <th>delete</th>
+            {% endif %}
         </tr>
         {% for item in items %}
         <tr>
             {% for data in item %}
             <td>{{data}}</td>
             {% endfor %}
+            {% if type == "golink" %}
+            <td><a onclick="return confirm('This will delete the golink \'{{item[0]}}\', are you sure?')" href="/go/{{item[0]}}/delete">Delete golink</a></td>
+            {% endif %}
         </tr>
         {% endfor %}
     </table>

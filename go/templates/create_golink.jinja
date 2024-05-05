@@ -21,4 +21,24 @@
     </form>
     </p>
 </div>
+<div class="content">
+    <p>Golinks you own are listed below:</p>
+    <br>
+    <table>
+        <tr>
+            {% for header in ["Golink", "Destination", "Delete"] %}
+            <th>{{header}}</th>
+            {% endfor %}
+        </tr>
+        {% for golink in golinks %}
+        <tr>
+            {% for data in golink %}
+            <td>{{data}}</td>
+            {% endfor %}
+            <td><a onclick="return confirm('This will delete the golink \'{{golink[0]}}\', are you sure?')" href="{{golink[0]}}/delete">Delete golink</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+</div>
 {% endblock content %}
