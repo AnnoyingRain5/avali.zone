@@ -31,6 +31,10 @@ def apply_caching(response):
 def inject_english_mode():
     return {"english": bool(request.cookies.get("english", False))}
 
+@app.context_processor
+def inject_environment():
+    return {"environment": os.environ.get("ENVIRONMENT_TYPE", "production")}
+
 # this uses the userinfo.profile scope, which provides:
 # id, name, given_name, picture (which is a url to the profile picture) and locale
 googleprint = make_google_blueprint(

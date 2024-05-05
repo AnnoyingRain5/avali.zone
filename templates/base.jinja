@@ -15,7 +15,7 @@
 
 <body>
     <div class="content">
-        {% block header %}{% endblock header %}
+        {% if environment == "development" %}<pre style="text-align:center;">(DEV)</pre>{% endif %}{% block header %}{% endblock header %}
     </div>
     {% block nav_override %}
     <div class="navbar">
