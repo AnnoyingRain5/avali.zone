@@ -19,7 +19,7 @@ def create_golink(userinfo, user):
                 return "I'm afraid that's not a valid destination address"
         database = db.get_db()
         try:
-            database.execute("INSERT INTO golinks VALUES (?, ?, ?)", (request.form["golink"], request.form["location"], userinfo["id"]))
+            database.execute("INSERT INTO golinks VALUES (?, ?, ?)", (request.form["golink"], request.form["location"], f"GOOGLE_{userinfo['email']}"))
             database.commit()
         except sqlite3.IntegrityError:
             return "This golink has already been used!"

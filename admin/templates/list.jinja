@@ -1,9 +1,9 @@
 {% extends "base.jinja" %}
 
-{% block title %} User List {% endblock title %}
+{% block title %} {{ type }} List {% endblock title %}
 
 {% block header %}
-<h1>Admin: User List</h1>
+<h1>Admin: {{ type }} List</h1>
 {% endblock header %}
 
 {% block content %}
@@ -14,9 +14,9 @@
             <th>{{header[1]}}</th>
             {% endfor %}
         </tr>
-        {% for user in users %}
+        {% for item in items %}
         <tr>
-            {% for data in user %}
+            {% for data in item %}
             <td>{{data}}</td>
             {% endfor %}
         </tr>
