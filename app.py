@@ -38,6 +38,7 @@ googleprint = make_google_blueprint(
     client_secret=os.environ.get("GOOGLE_CLIENT_SECRET"),
     offline=True,
     redirect_url="/panel",
+    reprompt_consent=True,
     scope="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid", 
 )
 
