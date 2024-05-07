@@ -24,19 +24,19 @@ window.onresize = function () {
 }
 
 function handleIncorrect() {
-    incorrect.fastSeek(0)
+    incorrect.currentTime = 0
     incorrect.play()
     score = 0
     scoretext.innerText = "Score: " + score
 }
 
 function handleCorrect() {
-    correct.fastSeek(0)
+    correct.currentTime = 0
     correct.play()
     score += 1
     scoretext.innerText = "Score: " + score
     if (score % 10 == 0) {
-        milestone_x10.fastSeek(0)
+        milestone_x10.currentTime = 0
         milestone_x10.play(0)
     }
 }
