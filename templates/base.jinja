@@ -3,10 +3,10 @@
 
 <head>
     <link rel="stylesheet" href="/static/css/base.css">
-    {% if english %}
-    <link rel="stylesheet" href="/static/css/english.css"">
-        {% endif %}
-        <link rel=" icon" href="/static/icons/avali.png">
+    {% if fontchoice == "english" %}
+    <link rel="stylesheet" href="/static/css/english.css">
+    {% endif %}
+    <link rel=" icon" href="/static/icons/avali.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avali Zone - {% block title %}{% endblock title %}</title>
     <meta name="description" content="{% block description %}{% endblock description %}">
@@ -15,7 +15,8 @@
 
 <body>
     <div class="content">
-        {% if environment == "development" %}<pre style="text-align:center;">(DEV)</pre>{% endif %}{% block header %}{% endblock header %}
+        {% if environment == "development" %}
+        <pre style="text-align:center;">(DEV)</pre>{% endif %}{% block header %}{% endblock header %}
     </div>
     {% block nav_override %}
     <div class="navbar">
@@ -44,7 +45,7 @@
             <a href="/panel">Panel</a>
         </div>
         <div class="pod">
-            {% if english %}
+            {% if fontchoice == "english" %}
             <a style="font-family: 'Avali Scratch'; font-size: 150%; " href="/util/togglelang">Prefer Scratch?</a>
             {% else %}
             <a style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 16px; "
@@ -61,6 +62,24 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
+
+    {% if fontchoice == none %}
+    <div id="WelcomeModal" class="modal" style="display: block;">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <p class="englishmodal">Welcome to avali.zone! Before proceeding, I need to know if you can read avali
+                scratch or not.</p>
+            <p class="englishmodal"><strong>If you don't know, pick "no".</strong></p>
+            <div class="modalinputs">
+                <button onclick="document.cookie = 'fontchoice=english; Max-Age=31536000; path=/'; location.reload()">No, I want english!</button>
+                <button class=englishmodal
+                    onclick="document.cookie = 'fontchoice=scratch; Max-Age=31536000; path=/'; document.getElementById('WelcomeModal').style.display='none';">Yes,
+                    I am fluent!</button>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 
     {% block content %}{% endblock content %}
 </body>

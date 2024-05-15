@@ -9,8 +9,8 @@ def togglelang():
         resp = redirect(request.referrer)
     else:
         resp = redirect("/")
-    if request.cookies.get("english", False):
-        resp.delete_cookie("english")
+    if request.cookies.get("fontchoice", "scratch") == "english":
+        resp.set_cookie("fontchoice", "scratch", max_age=31536000)
     else:
-        resp.set_cookie("english", "True")
+        resp.set_cookie("fontchoice", "english", max_age=31536000)
     return resp

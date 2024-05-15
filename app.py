@@ -29,7 +29,7 @@ def apply_caching(response):
 
 @app.context_processor
 def inject_english_mode():
-    return {"english": bool(request.cookies.get("english", False))}
+    return {"fontchoice": request.cookies.get("fontchoice", None)}
 
 @app.context_processor
 def inject_environment():
