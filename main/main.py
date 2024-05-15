@@ -59,7 +59,7 @@ def _contact():
             os.environ.get("MESSENGER_WEBHOOK_URL"),
             json={
                 "username": "avali.zone messenger",
-                "avatar_url": f"/static/icons/avali.png",
+                "avatar_url": f"{request.url_root}/static/icons/avali.png",
                 "content": f"<@{os.environ.get('OWNER_USER_ID')}>",
                 "embeds": [
                     {
