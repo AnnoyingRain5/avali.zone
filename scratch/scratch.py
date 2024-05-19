@@ -51,20 +51,16 @@ def word_practice_sub():
                 answers.append(tempanswer)
                 break
     answers.sort()
-    if random.randint(1, 2) == 1:
-        return render_template(
-            "scratch/practice-input-sub.jinja",
-            prompt=prompt,
-            answers=answers,
-            practicetype="Word",
-        )
-    else:
-        return render_template(
-            "scratch/practice-prompt-sub.jinja",
-            prompt=prompt,
-            answers=answers,
-            practicetype="Word",
-        )
+    return render_template(
+        (
+            "scratch/practice-input-sub.jinja"
+            if random.randint(0, 1) else
+            "scratch/practice-prompt-sub.jinja"
+        ),
+        prompt=prompt,
+        answers=answers,
+        practicetype="Word",
+    )
 
 
 @scratch.route("/internal/Letter-sub")
@@ -87,20 +83,16 @@ def letter_practice_sub():
                 answers.append(tempanswer)
                 break
     answers.sort()
-    if random.randint(1, 2) == 1:
-        return render_template(
-            "scratch/practice-input-sub.jinja",
-            prompt=prompt,
-            answers=answers,
-            practicetype="Letter",
-        )
-    else:
-        return render_template(
-            "scratch/practice-prompt-sub.jinja",
-            prompt=prompt,
-            answers=answers,
-            practicetype="Letter",
-        )
+    return render_template(
+        (
+            "scratch/practice-input-sub.jinja"
+            if random.randint(0, 1) else
+            "scratch/practice-prompt-sub.jinja"
+        ),
+        prompt=prompt,
+        answers=answers,
+        practicetype="Letter",
+    )
 
 @scratch.route('/<first>')
 @scratch.route('/<first>/<path:rest>')
