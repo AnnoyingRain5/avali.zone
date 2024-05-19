@@ -1,5 +1,5 @@
 import os
-from flask import Blueprint, render_template, request, redirect, Response
+from flask import Blueprint, current_app, render_template, request, redirect, Response, url_for
 import json
 import requests
 import auth
@@ -14,13 +14,36 @@ def log_request():
     if endpoint_stats.get(request.endpoint, None) is None:
         endpoint_stats[request.endpoint] = 1
     else:
-        endpoint_stats[request.endpoint] += 1
-
+        endpoint_stats[request.endpoint] += 1 
 
 @main.route("/")
 def index():
     return render_template("index.jinja")
 
+def has_no_empty_params(rule):
+    defaults = rule.defaults if rule.defaults is not None else ()
+    arguments = rule.arguments if rule.arguments is not None else ()
+    return len(defaults) >= len(arguments)
+
+@main.route("/sitemap.xml")
+def sitemap():
+    links = []
+    for rule in current_app.url_map.iter_rules():
+        # Filter out rules we can't navigate to in a browser
+        # and rules that require parameters
+        if "GET" in rule.methods and has_no_empty_params(rule):
+            url = url_for(rule.endpoint, **(rule.defaults or {}))
+            # ignore some endpoints
+            if not (url.startswith("/login") | url.startswith("/admin") | url.startswith("/go") | url.startswith('/util') | url.endswith('-sub')):
+                links.append(request.url_root[0:-1] + url) # slice: remove ending /
+    # add missing URLs
+    links.append(request.url_root[0:-1] + "/scratch/practice/letter")
+    links.append(request.url_root[0:-1] + "/scratch/practice/word")
+    return Response(render_template("sitemap.xml.jinja", urls=links), mimetype="application/xml")
+
+@main.route('/robots.txt')
+def robots():
+    return Response(render_template("robots.txt.jinja", url_base=request.base_url), mimetype="plain")
 
 @main.route("/stats")
 def stats():
