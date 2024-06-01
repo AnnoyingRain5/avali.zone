@@ -12,6 +12,8 @@ This is the code repo for [avali.zone](https://avali.zone), the home of the Aval
         - links
             - this should be in a seperate table, so I can `SELECT * FROM links WHERE groupid = ?`
             - links have a name and destination
+        - type
+            - type should be a seperate table that has a name and order (int)
         - owner
     - Only admin can reorder or add content 
     - admin can also assign owners, who can manage name, description and links
