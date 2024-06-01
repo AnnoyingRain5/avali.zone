@@ -43,7 +43,7 @@ def sitemap():
 
 @main.route('/robots.txt')
 def robots():
-    return Response(render_template("robots.txt.jinja", url_base=request.base_url), mimetype="plain")
+    return Response(render_template("robots.txt.jinja", url_base=request.root_url), mimetype="plain")
 
 @main.route("/stats")
 def stats():
