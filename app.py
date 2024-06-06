@@ -17,6 +17,7 @@ import db
 dotenv.load_dotenv()
 app = Flask(__name__, subdomain_matching=True)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 3600 # one hour
 app.wsgi_app = ProxyFix(app.wsgi_app)
 db.init_app(app)
 
