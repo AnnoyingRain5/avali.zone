@@ -12,8 +12,10 @@ from go import go
 from admin import admin
 
 import db
+import upgrade_db
 
 
+upgrade_db.upgrade_if_needed()
 dotenv.load_dotenv()
 app = Flask(__name__, subdomain_matching=True)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
