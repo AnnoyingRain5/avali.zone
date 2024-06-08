@@ -1,15 +1,6 @@
-PRAGMA user_version = 2;
-
-CREATE TABLE users (
-  id              TEXT PRIMARY KEY,
-  admin           BOOLEAN DEFAULT FALSE,
-  golink_approved BOOLEAN DEFAULT FALSE
-);
-
 CREATE TABLE categories (
   id INTEGER PRIMARY KEY,
   name TEXT NOT NULL,
-  type TEXT NOT NULL
   displayorder NUMBER NOT NULL
 );
 
@@ -32,10 +23,5 @@ CREATE TABLE links (
   infoboxid NUMBER NOT NULL
 );
 
-CREATE TABLE golinks (
-  name TEXT   PRIMARY KEY,
-  destination TEXT NOT NULL,
-  owner       TEXT NOT NULL,
-  FOREIGN KEY(owner) REFERENCES users(id)
-);
 
+PRAGMA user_version = 1;

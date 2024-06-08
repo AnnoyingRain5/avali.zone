@@ -16,111 +16,24 @@
         no matter where they are.
     </p>
 </div>
+{% for category in categories %}
 <div class="content">
-    <h2>Organised Groups</h2>
+    <h2>{{category['name']}}</h2>
     <div class="dock">
+        {% for group in groups if group['categoryid'] == category['id'] %}
         <div class="pod">
-            <h3>Avali Army</h3>
-            <p>Avali-focused Discord server, home of the Da'Vali model, the Avalicraft Minecraft server and VRChat
-                meetups!</p>
+            <h3>{{group['name']}}</h3>
+            <p>{{group['description']}}</p>
             <div class="dock">
+                {% for link in links if link['infoboxid'] == group['id']%}
                 <div class="pod">
-                    <a href="https://discord.gg/avali">Join them! (Discord)</a>
+                    <a href='{{link["destination"]}}'>{{link["name"]}}</a>
                 </div>
+                {% endfor %}
             </div>
         </div>
-
-        <div class="pod">
-            <h3>Lost Community</h3>
-            <p>General Avali Discord server, focused around the Lost Avali stickers! Also has a VRchat group.</p>
-            <div class="dock">
-                <div class="pod">
-                    <a href="https://discord.gg/bV6r6eUVSp">Join them! (Discord)</a>
-                </div>
-                <div class="pod">
-                    <a href="https://discord.gg/bV6r6eUVSp">Join them! (VRChat)</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="pod">
-            <h3>Space Bird Federation</h3>
-            <p>Semi-roleplay Discord server, also holds VRChat meetups and Wiggle Wednesdays</p>
-            <div class="dock">
-                <div class="pod">
-                    <a href="https://discord.gg/bV6r6eUVSp">Join them! (Discord)</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="pod">
-            <h3>Avali Triage</h3>
-            <p>General avali Discord server with a Starbound focus</p>
-            <div class="dock">
-                <div class="pod">
-                    <a href="https://discord.gg/uppXW2k">Join them! (Discord)</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="pod">
-            <h3>Kita's Gremlinhouse</h3>
-            <p>General avali discord, home of the Kita'vali model!</p>
-            <div class="dock">
-                <div class="pod">
-                    <a href="https://discord.gg/kitavali">Join them! (Discord)</a>
-                </div>
-            </div>
-        </div>
-        <div class="pod">
-            <h3>Lords of Floof</h3>
-            <p>A huge general avali discord with lots of stickers, home of the natvali model!</p>
-            <div class="dock">
-                <div class="pod">
-                    <a href="https://discord.gg/hM5zUwG5X3">Join them! (Discord)</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="pod">
-        <h3>r/avali</h3>
-        <p>The avali subreddit! Lots of art is posted here. There is also an r/avali discord server!</p>
-        <div class="dock">
-            <div class="pod">
-                <a href="https://reddit.com/r/avali">Join them! (Reddit)</a>
-            </div>
-            <div class="pod">
-                <a href="https://discord.com/invite/FMXxz34Pa6">Join them! (Discord)</a>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
-
-<div class="content">
-    <h2>Other places to find fellow avali</h2>
-    <div class="dock">
-        <div class="pod">
-            <h3>VRChat</h3>
-            <p>VRChat has a significant avali population, try looking in furry instances!</p>
-            <div class="dock">
-                <div class="pod">
-                    <a href="https://hello.vrchat.com/">Join them! (Website)</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="pod">
-            <h3>Resonite</h3>
-            <p>
-                Resonite also has a significant avali population! I would say to look in
-                furry instances, but this is Resonite, every instance is a furry instance!
-            </p>
-            <div class="dock">
-                <div class="pod">
-                    <a href="https://resonite.com/">Join them! (Website)</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{% endfor %}
 {% endblock content %}

@@ -1,0 +1,36 @@
+{% extends "base.jinja" %}
+
+{% block title %}Admin: Create Infobox {% endblock title %}
+
+{% block header %}
+<h1>Admin: Create Infobox</h1>
+{% endblock header %}
+
+{% block content %}
+<div class="content">
+    <h2>The infobox:</h2>
+    <div class="dock">
+        <div class="pod">
+            <form action="create/submit" method="post">
+                <label for="name">Name</label><br>
+                <input type="text" id="name" name="name"><br>
+                <label for="type">Type (eg: "group" or "content" CaSe SeNsItIvE)</label><br>
+                <input type="text" id="type" name="type"><br>
+                <label for="description">Description</label><br>
+                <input type="text" id="description" name="description"><br>
+                <label for="categoryid">The ID of the category this infobox belongs to</label><br>
+                <input type="text" id="categoryid" name="categoryid"><br>
+                <label for="owner">The ID of the owner of this infobox</label><br>
+                <input type="text" id="owner" name="owner"><br>
+                <label for="displayorder">The displayorder (like a priority) of this infobox</label><br>
+                <input type="text" id="displayorder" name="displayorder"><br><br>
+                <input type="submit" value="Submit"><br>
+            </form>
+        </div>
+    </div>
+    <p>
+        Note: you'll probably also want to make some links to attach to it! You can do that by editing this infobox <br>
+        You can't do it here because that would mean effort on my side, so no.
+    </p>
+</div>
+{% endblock content %}

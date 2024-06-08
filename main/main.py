@@ -3,6 +3,7 @@ from flask import Blueprint, current_app, render_template, request, redirect, Re
 import json
 import requests
 import auth
+import db
 
 endpoint_stats = {}
 
@@ -65,12 +66,21 @@ def community():
 
 @main.route("/groups")
 def community_groups():
-    return render_template("groups.jinja")
+    database = db.get_db()
+    groups = database.execute("SELECT * FROM infoboxes WHERE type = 'group' ORDER BY displayorder").fetchall()
+    categories = database.execute("SELECT * FROM categories WHERE type = 'group' ORDER BY displayorder").fetchall()
+    links = database.execute("SELECT * FROM links").fetchall()
+    print(groups)
+    return render_template("groups.jinja", groups=groups, links=links, categories=categories)
 
 
 @main.route("/content")
 def community_content():
-    return render_template("content.jinja")
+    database = db.get_db()
+    content = database.execute("SELECT * FROM infoboxes WHERE type = 'content' ORDER BY displayorder").fetchall()
+    categories = database.execute("SELECT * FROM categories WHERE type = 'content' ORDER BY displayorder").fetchall()
+    links = database.execute("SELECT * FROM links").fetchall()
+    return render_template("content.jinja", groups=content, links=links, categories=categories)
 
 @main.route("/contact", methods=["GET", "POST"])
 def _contact():
@@ -121,6 +131,12 @@ def panel(userinfo, user):
         permissions["golinks"] = "/go"
     if auth.has_permission(user, "admin"):
         permissions["User list"] = "/admin/users"
+    if auth.has_permission(user, "admin"):
+        permissions["Manage infoboxes"] = "/admin/infoboxes"
+    if auth.has_permission(user, "admin"):
+        permissions["Manage (infobox) Categories"] = "/admin/categories"
+    if auth.has_permission(user, "admin"):
+        permissions["(Infobox) Link List"] = "/admin/links"
     if auth.has_permission(user, "admin"):
         permissions["Golink list"] = "/admin/golinks"
 

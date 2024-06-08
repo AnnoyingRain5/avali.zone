@@ -16,6 +16,9 @@
             {% if type == "golink" %}
             <th>delete</th>
             {% endif %}
+            {% if type == "infoboxes" or type == "categories" %}
+            <th>edit</th>
+            {% endif %}
         </tr>
         {% for item in items %}
         <tr>
@@ -23,10 +26,26 @@
             <td>{{data}}</td>
             {% endfor %}
             {% if type == "golink" %}
-            <td><a onclick="return confirm('This will delete the golink \'{{item[0]}}\', are you sure?')" href="/go/{{item[0]}}/delete">Delete golink</a></td>
+            <td><a onclick="return confirm('This will delete the golink \'{{item[0]}}\', are you sure?')"
+                    href="/go/{{item[0]}}/delete">Delete golink</a></td>
+            {% endif %}
+            {% if type == "infoboxes" %}
+            <td><a href="/admin/infoboxes/{{item[0]}}/edit">Edit infobox</a></td>
+            {% endif %}
+            {% if type == "categories" %}
+            <td><a href="/admin/categories/{{item[0]}}/edit">Edit category</a></td>
             {% endif %}
         </tr>
         {% endfor %}
     </table>
 </div>
+{% if type == "infoboxes" or type == "categories" %}
+<div class="content">
+    <div class="dock">
+        <div class="pod">
+        <a href="/admin/{{type}}/create">Create a new one!</a>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% endblock content %}

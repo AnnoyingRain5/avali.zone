@@ -4,7 +4,7 @@ This is the code repo for [avali.zone](https://avali.zone), the home of the Aval
 
 ## Todo:
 
-- Switch to dynamically generating main/templates/content and main/templates/groups
+- Switch to dynamically generating main/templates/content and main/templates/groups PARTIALLY DONE
     - each content or group should include the following:
         - name
         - description
