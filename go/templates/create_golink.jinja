@@ -35,7 +35,8 @@
             {% for data in golink %}
             <td>{{data}}</td>
             {% endfor %}
-            <td><a onclick="return confirm('This will delete the golink \'{{golink[0]}}\', are you sure?')" href="{{golink[0]}}/delete">Delete golink</a></td>
+            <td><a onclick="return confirm('This will delete the golink \'{{golink[0]}}\', are you sure?')"
+                    href="{{golink[0]}}/delete">Delete golink</a></td>
         </tr>
         {% endfor %}
     </table>

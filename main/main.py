@@ -1,5 +1,13 @@
 import os
-from flask import Blueprint, current_app, render_template, request, redirect, Response, url_for
+from flask import (
+    Blueprint,
+    current_app,
+    render_template,
+    request,
+    redirect,
+    Response,
+    url_for,
+)
 import json
 import requests
 import auth
@@ -15,16 +23,19 @@ def log_request():
     if endpoint_stats.get(request.endpoint, None) is None:
         endpoint_stats[request.endpoint] = 1
     else:
-        endpoint_stats[request.endpoint] += 1 
+        endpoint_stats[request.endpoint] += 1
+
 
 @main.route("/")
 def index():
     return render_template("index.jinja")
 
+
 def has_no_empty_params(rule):
     defaults = rule.defaults if rule.defaults is not None else ()
     arguments = rule.arguments if rule.arguments is not None else ()
     return len(defaults) >= len(arguments)
+
 
 @main.route("/sitemap.xml")
 def sitemap():
@@ -35,16 +46,28 @@ def sitemap():
         if "GET" in rule.methods and has_no_empty_params(rule):
             url = url_for(rule.endpoint, **(rule.defaults or {}))
             # ignore some endpoints
-            if not (url.startswith("/login") | url.startswith("/admin") | url.startswith("/go") | url.startswith('/util') | url.endswith('-sub')):
-                links.append(request.url_root[0:-1] + url) # slice: remove ending /
+            if not (
+                url.startswith("/login")
+                | url.startswith("/admin")
+                | url.startswith("/go")
+                | url.startswith("/util")
+                | url.endswith("-sub")
+            ):
+                links.append(request.url_root[0:-1] + url)  # slice: remove ending /
     # add missing URLs
     links.append(request.url_root[0:-1] + "/scratch/practice/letter")
     links.append(request.url_root[0:-1] + "/scratch/practice/word")
-    return Response(render_template("sitemap.xml.jinja", urls=links), mimetype="application/xml")
+    return Response(
+        render_template("sitemap.xml.jinja", urls=links), mimetype="application/xml"
+    )
 
-@main.route('/robots.txt')
+
+@main.route("/robots.txt")
 def robots():
-    return Response(render_template("robots.txt.jinja", url_base=request.root_url), mimetype="plain")
+    return Response(
+        render_template("robots.txt.jinja", url_base=request.root_url), mimetype="plain"
+    )
+
 
 @main.route("/stats")
 def stats():
@@ -67,20 +90,33 @@ def community():
 @main.route("/groups")
 def community_groups():
     database = db.get_db()
-    groups = database.execute("SELECT * FROM infoboxes WHERE type = 'group' ORDER BY displayorder").fetchall()
-    categories = database.execute("SELECT * FROM categories WHERE type = 'group' ORDER BY displayorder").fetchall()
+    groups = database.execute(
+        "SELECT * FROM infoboxes WHERE type = 'group' ORDER BY displayorder"
+    ).fetchall()
+    categories = database.execute(
+        "SELECT * FROM categories WHERE type = 'group' ORDER BY displayorder"
+    ).fetchall()
     links = database.execute("SELECT * FROM links").fetchall()
     print(groups)
-    return render_template("groups.jinja", groups=groups, links=links, categories=categories)
+    return render_template(
+        "groups.jinja", groups=groups, links=links, categories=categories
+    )
 
 
 @main.route("/content")
 def community_content():
     database = db.get_db()
-    content = database.execute("SELECT * FROM infoboxes WHERE type = 'content' ORDER BY displayorder").fetchall()
-    categories = database.execute("SELECT * FROM categories WHERE type = 'content' ORDER BY displayorder").fetchall()
+    content = database.execute(
+        "SELECT * FROM infoboxes WHERE type = 'content' ORDER BY displayorder"
+    ).fetchall()
+    categories = database.execute(
+        "SELECT * FROM categories WHERE type = 'content' ORDER BY displayorder"
+    ).fetchall()
     links = database.execute("SELECT * FROM links").fetchall()
-    return render_template("content.jinja", groups=content, links=links, categories=categories)
+    return render_template(
+        "content.jinja", groups=content, links=links, categories=categories
+    )
+
 
 @main.route("/contact", methods=["GET", "POST"])
 def _contact():
@@ -123,6 +159,7 @@ def wiki():
 def book():
     return render_template("lore/book.jinja")
 
+
 @main.route("/panel")
 @auth.requires_auth([])
 def panel(userinfo, user):
@@ -142,7 +179,7 @@ def panel(userinfo, user):
 
     return render_template("panel.jinja", permissions=permissions, userinfo=userinfo)
 
+
 @main.route("/lore")
 def lore():
     return render_template("lore.jinja")
-

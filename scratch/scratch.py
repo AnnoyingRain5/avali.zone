@@ -8,7 +8,9 @@ wordlist = []
 with open("static/json/wordlist.json") as f:
     wordlist = json.load(f)["wordlist"]
 
-scratch = Blueprint("scratch", __name__, template_folder="templates", url_prefix="/scratch")
+scratch = Blueprint(
+    "scratch", __name__, template_folder="templates", url_prefix="/scratch"
+)
 
 
 @scratch.route("/")
@@ -54,8 +56,8 @@ def word_practice_sub():
     return render_template(
         (
             "scratch/practice-input-sub.jinja"
-            if random.randint(0, 1) else
-            "scratch/practice-prompt-sub.jinja"
+            if random.randint(0, 1)
+            else "scratch/practice-prompt-sub.jinja"
         ),
         prompt=prompt,
         answers=answers,
@@ -86,18 +88,20 @@ def letter_practice_sub():
     return render_template(
         (
             "scratch/practice-input-sub.jinja"
-            if random.randint(0, 1) else
-            "scratch/practice-prompt-sub.jinja"
+            if random.randint(0, 1)
+            else "scratch/practice-prompt-sub.jinja"
         ),
         prompt=prompt,
         answers=answers,
         practicetype="Letter",
     )
 
-@scratch.route('/<first>')
-@scratch.route('/<first>/<path:rest>')
+
+@scratch.route("/<first>")
+@scratch.route("/<first>/<path:rest>")
 def catchall(first=None, rest=None):
     abort(404)
+
 
 @scratch.errorhandler(werkzeug.exceptions.HTTPException)
 def error(error: werkzeug.exceptions.HTTPException):

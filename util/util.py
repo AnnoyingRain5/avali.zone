@@ -3,6 +3,7 @@ import os
 
 util = Blueprint("util", __name__, template_folder="templates", url_prefix="/util")
 
+
 @util.route("/togglelang")
 def togglelang():
     if request.referrer != None:
