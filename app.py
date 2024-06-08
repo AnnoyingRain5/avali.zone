@@ -1,7 +1,7 @@
 import dotenv
 from flask import Flask, render_template, request
 from werkzeug.middleware.proxy_fix import ProxyFix
-from flask_dance.contrib.google import make_google_blueprint, google
+from flask_dance.contrib.google import make_google_blueprint
 import os
 import werkzeug
 

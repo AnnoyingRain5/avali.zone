@@ -1,5 +1,4 @@
 from flask import Blueprint, redirect, request, render_template, flash
-from flask_dance.contrib.google import google
 import sys
 import sqlite3
 

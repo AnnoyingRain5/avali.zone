@@ -1,5 +1,4 @@
 from flask import redirect, Blueprint, request
-import os
 
 util = Blueprint("util", __name__, template_folder="templates", url_prefix="/util")
 

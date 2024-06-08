@@ -4,7 +4,6 @@ from flask import (
     current_app,
     render_template,
     request,
-    redirect,
     Response,
     url_for,
 )

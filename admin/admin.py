@@ -1,6 +1,5 @@
-from flask import Blueprint, render_template, request, redirect, Response, flash
+from flask import Blueprint, render_template, request, redirect, flash
 from werkzeug.exceptions import BadRequest
-import json
 import db
 import auth
 
