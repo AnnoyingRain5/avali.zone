@@ -2,4 +2,4 @@
 __pycache__
 .git
 .env
-db.db
+db/db.db
