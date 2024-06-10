@@ -3,7 +3,7 @@
 {% block title %} {{ type }} List {% endblock title %}
 
 {% block header %}
-<h1>Admin: {{ type }} List</h1>
+<h1>{% if admin %} Admin: {% endif %} {{ type }} List</h1>
 {% endblock header %}
 
 {% block content %}
@@ -39,7 +39,7 @@
         {% endfor %}
     </table>
 </div>
-{% if type == "infoboxes" or type == "categories" %}
+{% if (type == "infoboxes" and admin) or type == "categories" %}
 <div class="content">
     <div class="dock">
         <div class="pod">

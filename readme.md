@@ -5,7 +5,7 @@ This is the code repo for [avali.zone](https://avali.zone), the home of the Aval
 ## Todo:
 
 - Switch to dynamically generating main/templates/content and main/templates/groups PARTIALLY DONE
-    - each content or group should include the following:
+    - ✅ each content or group should include the following:
         - name
         - description
         - order (int)
@@ -15,8 +15,8 @@ This is the code repo for [avali.zone](https://avali.zone), the home of the Aval
         - type
             - type should be a seperate table that has a name and order (int)
         - owner
-    - Only admin can reorder or add content 
-    - admin can also assign owners, who can manage name, description and links
+    - ✅ Only admin can reorder or add content 
+    - ✅ admin can also assign owners, who can manage name, description and links
 
 - Content/group mini-sites (pages)
     - TLDR: allow group or content owners to control a sub-site

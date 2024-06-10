@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, flash
-from werkzeug.exceptions import BadRequest
+from flask import Blueprint, abort, render_template, request, redirect, flash
 import db
 import auth
 
@@ -11,40 +10,49 @@ admin = Blueprint("admin", __name__, template_folder="templates", url_prefix="/a
 def user_list(user, userinfo):
     headers = db.get_db().execute("PRAGMA table_info(USERS)").fetchall()
     users = db.get_db().execute("SELECT * FROM USERS").fetchall()
-    return render_template("list.jinja", items=users, headers=headers, type="user")
+    return render_template("list.jinja", items=users, headers=headers, type="user", admin=True)
 
 
-@auth.requires_auth(["admin"])
 @admin.route("/golinks")
-def golink_list():
+@auth.requires_auth(["admin"])
+def golink_list(user, userinfo):
     headers = db.get_db().execute("PRAGMA table_info(golinks)").fetchall()
     golinks = db.get_db().execute("SELECT * FROM golinks").fetchall()
-    return render_template("list.jinja", items=golinks, headers=headers, type="golink")
+    return render_template("list.jinja", items=golinks, headers=headers, type="golink", admin=True)
 
 
-@auth.requires_auth(["admin"])
 @admin.route("/infoboxes")
-def infobox_manage():
+@auth.requires_auth(["manage_own_infoboxes"])
+def infobox_manage(user, userinfo):
     headers = db.get_db().execute("PRAGMA table_info(infoboxes)").fetchall()
-    infoboxes = (
-        db.get_db()
-        .execute("SELECT * FROM infoboxes ORDER BY type, displayorder")
-        .fetchall()
-    )
+    if auth.has_permission(user, "admin"):
+        infoboxes = (
+            db.get_db()
+            .execute("SELECT * FROM infoboxes ORDER BY type, displayorder")
+            .fetchall()
+        )
+        admin = True
+    else:
+        infoboxes = (
+            db.get_db()
+            .execute("SELECT * FROM infoboxes WHERE owner = ? ORDER BY type, displayorder", (user["id"],))
+            .fetchall()
+        )
+        admin = False
     return render_template(
-        "list.jinja", items=infoboxes, headers=headers, type="infoboxes"
+        "list.jinja", items=infoboxes, headers=headers, type="infoboxes", admin=admin
     )
 
 
-@auth.requires_auth(["admin"])
 @admin.route("/infoboxes/create")
-def infobox_create():
+@auth.requires_auth(["admin"])
+def infobox_create(user, userinfo):
     return render_template("infobox_create.jinja")
 
 
-@auth.requires_auth(["admin"])
 @admin.route("/infoboxes/create/submit", methods=["post"])
-def infobox_create_submit():
+@auth.requires_auth(["admin"])
+def infobox_create_submit(user, userinfo):
     database = db.get_db()
     database.execute(
         "INSERT INTO infoboxes (name, type, description, categoryid, owner, displayorder) VALUES (?, ?, ?, ?, ?, ?);",
@@ -62,17 +70,17 @@ def infobox_create_submit():
     return redirect(request.referrer)
 
 
-@auth.requires_auth(["admin"])
 @admin.route("/links")
-def links_list():
+@auth.requires_auth(["admin"])
+def links_list(user, userinfo):
     headers = db.get_db().execute("PRAGMA table_info(links)").fetchall()
     infoboxes = db.get_db().execute("SELECT * FROM links").fetchall()
-    return render_template("list.jinja", items=infoboxes, headers=headers, type="links")
+    return render_template("list.jinja", items=infoboxes, headers=headers, type="links", admin=True)
 
 
-@auth.requires_auth(["admin"])
 @admin.route("/categories")
-def categories_manage():
+@auth.requires_auth(["admin"])
+def categories_manage(user, userinfo):
     headers = db.get_db().execute("PRAGMA table_info(categories)").fetchall()
     infoboxes = (
         db.get_db()
@@ -80,19 +88,19 @@ def categories_manage():
         .fetchall()
     )
     return render_template(
-        "list.jinja", items=infoboxes, headers=headers, type="categories"
+        "list.jinja", items=infoboxes, headers=headers, type="categories", admin=True
     )
 
 
-@auth.requires_auth(["admin"])
 @admin.route("/categories/create")
-def category_create():
+@auth.requires_auth(["admin"])
+def category_create(user, userinfo):
     return render_template("category_create.jinja")
 
 
-@auth.requires_auth(["admin"])
 @admin.route("/categories/create/submit", methods=["post"])
-def category_create_submit():
+@auth.requires_auth(["admin"])
+def category_create_submit(user, userinfo):
     database = db.get_db()
     database.execute(
         "INSERT INTO categories (name, displayorder, type) VALUES (?, ?, ?);",
@@ -103,28 +111,31 @@ def category_create_submit():
     return redirect(request.referrer)
 
 
-@auth.requires_auth(["admin"])
 @admin.route("/infoboxes/<int:id>/edit")
-def infobox_edit(id):
+@auth.requires_auth(["manage_own_infoboxes"])
+def infobox_edit(user, userinfo, id):
     links = db.get_db().execute("SELECT * FROM links WHERE infoboxid = ?", (id,))
     infobox = (
         db.get_db().execute("SELECT * FROM infoboxes WHERE id = ?", (id,)).fetchall()
     )
-    return render_template("infobox_edit.jinja", infobox=infobox, links=links)
+    if auth.has_permission(user, "admin") or infobox[0]["owner"] == user["id"]:
+        return render_template("infobox_edit.jinja", infobox=infobox, links=links, admin=auth.has_permission(user, "admin"))
+    else:
+        abort(403)
 
 
-@auth.requires_auth(["admin"])
 @admin.route("/categories/<int:id>/edit")
-def category_edit(id):
+@auth.requires_auth(["admin"])
+def category_edit(user, userinfo, id):
     category = (
         db.get_db().execute("SELECT * FROM categories WHERE id = ?", (id,)).fetchall()
     )
     return render_template("category_edit.jinja", category=category)
 
 
-@auth.requires_auth(["admin"])
 @admin.route("/categories/<int:id>/edit/submit", methods=["post"])
-def category_edit_submit(id):
+@auth.requires_auth(["admin"])
+def category_edit_submit(user, userinfo, id):
     database = db.get_db()
     database.execute(
         "UPDATE categories SET name = ?, type = ?, displayorder = ? WHERE id = ?;",
@@ -135,55 +146,78 @@ def category_edit_submit(id):
     return redirect(request.referrer)
 
 
-@auth.requires_auth(["admin"])
 @admin.route("/infoboxes/<int:id>/edit/submit", methods=["post"])
-def infobox_edit_submit(id):
+@auth.requires_auth(["manage_own_infoboxes"])
+def infobox_edit_submit(user, userinfo, id):
     database = db.get_db()
-    database.execute(
-        "UPDATE infoboxes SET name = ?, type = ?, description = ?, categoryid = ?, owner = ?, displayorder = ? WHERE id = ?;",
-        (
-            request.form["name"],
-            request.form["type"],
-            request.form["description"],
-            request.form["categoryid"],
-            request.form["owner"],
-            request.form["displayorder"],
-            id,
-        ),
-    )
+    if auth.has_permission(user, "admin"):
+        database.execute(
+            "UPDATE infoboxes SET name = ?, type = ?, description = ?, categoryid = ?, owner = ?, displayorder = ? WHERE id = ?;",
+            (
+                request.form["name"],
+                request.form["type"],
+                request.form["description"],
+                request.form["categoryid"],
+                request.form["owner"],
+                request.form["displayorder"],
+                id,
+            ),
+        )
+    else:
+        infobox = (
+            database.execute("SELECT owner FROM infoboxes WHERE id = ?", (id,)).fetchall()
+        )
+        if infobox[0]["owner"] == user["id"]:
+            database.execute(
+                "UPDATE infoboxes SET name = ?, description = ? WHERE id = ?;",
+                (
+                    request.form["name"],
+                    request.form["description"],
+                    id
+                ),
+            )
     database.commit()
     flash("Done!", "success")
     return redirect(request.referrer)
 
 
-@auth.requires_auth(["admin"])
 @admin.route("/links/<int:id>/edit/submit", methods=["post"])
-def link_edit_submit(id):
+@auth.requires_auth(["manage_own_infoboxes"])
+def link_edit_submit(user, userinfo, id):
     database = db.get_db()
-    database.execute(
-        "UPDATE links SET name = ?, destination = ? WHERE id = ?;",
-        (request.form["name"], request.form["destination"], id),
-    )
+    infoboxid = database.execute("SELECT infoboxid from links WHERE id = ?", (id,)).fetchall()[0][0]
+    infoboxOwner = database.execute("SELECT owner from infoboxes WHERE id = ?", (infoboxid,)).fetchall()[0][0]
+    if auth.has_permission(user, "admin") or user["id"] == infoboxOwner:
+        database.execute(
+            "UPDATE links SET name = ?, destination = ? WHERE id = ?;",
+            (request.form["name"], request.form["destination"], id),
+        )
+    else:
+        abort(403)
     database.commit()
     flash("Done!", "success")
     return redirect(request.referrer)
 
 
-@auth.requires_auth(["admin"])
 @admin.route("/links/create/submit", methods=["post"])
-def link_create_submit():
+@auth.requires_auth(["manage_own_infoboxes"])
+def link_create_submit(user, userinfo):
     infoboxid = None
     if request.form.get("infoboxid", None):
         infoboxid = request.form["infoboxid"]
     elif request.args.get("infoboxid", None):
         infoboxid = request.args["infoboxid"]
     else:
-        raise BadRequest
+        abort(400)
     database = db.get_db()
-    database.execute(
-        "INSERT INTO links (name, destination, infoboxid) VALUES (?, ?, ?)",
-        (request.form["name"], request.form["destination"], infoboxid),
-    )
-    database.commit()
+    infoboxOwner = database.execute("SELECT owner from infoboxes WHERE id = ?", (infoboxid,)).fetchall()[0][0]
+    if auth.has_permission(user, "admin") or user["id"] == infoboxOwner:
+        database.execute(
+            "INSERT INTO links (name, destination, infoboxid) VALUES (?, ?, ?)",
+            (request.form["name"], request.form["destination"], infoboxid),
+        )
+        database.commit()
+    else:
+        abort(403)
     flash("Done!", "success")
     return redirect(request.referrer)

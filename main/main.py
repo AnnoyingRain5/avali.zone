@@ -167,7 +167,7 @@ def panel(userinfo, user):
         permissions["golinks"] = "/go"
     if auth.has_permission(user, "admin"):
         permissions["User list"] = "/admin/users"
-    if auth.has_permission(user, "admin"):
+    if auth.has_permission(user, "manage_own_infoboxes"):
         permissions["Manage infoboxes"] = "/admin/infoboxes"
     if auth.has_permission(user, "admin"):
         permissions["Manage (infobox) Categories"] = "/admin/categories"

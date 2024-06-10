@@ -3,13 +3,14 @@ PRAGMA user_version = 2;
 CREATE TABLE users (
   id              TEXT PRIMARY KEY,
   admin           BOOLEAN DEFAULT FALSE,
-  golink_approved BOOLEAN DEFAULT FALSE
+  golink_approved BOOLEAN DEFAULT FALSE,
+  manage_own_infoboxes BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE categories (
   id INTEGER PRIMARY KEY,
   name TEXT NOT NULL,
-  type TEXT NOT NULL
+  type TEXT NOT NULL,
   displayorder NUMBER NOT NULL
 );
 
