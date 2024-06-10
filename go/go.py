@@ -10,7 +10,7 @@ go = Blueprint("go", __name__, template_folder="templates", url_prefix="/go")
 
 
 @go.route("/", methods=["GET", "POST"])
-@auth.requires_auth(["golink"])
+@auth.requires_auth(["golink_approved"])
 def create_golink(userinfo, user):
     if request.method == "GET":
         golinks = (
@@ -62,7 +62,7 @@ def _go(golink: str):
 
 
 @go.route("/<golink>/delete")
-@auth.requires_auth(["golink"])
+@auth.requires_auth(["golink_approved"])
 def delete(golink: str, userinfo, user):
     database = db.get_db()
     db_golink = database.execute(

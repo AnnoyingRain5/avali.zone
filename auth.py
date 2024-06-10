@@ -26,16 +26,10 @@ def requires_auth(requirements: list[str]):
                 database.commit()
                 if requirements:
                     abort(403)
-
-            # admins pass all checks automatically
-            if user["ADMIN"]:
-                return f(*args, **kwargs, userinfo=userinfo, user=user)
-
             for requirement in requirements:
-                match requirement:
-                    case "golink":
-                        if not user["golink_approved"]:
-                            abort(403)
+                if not has_permission(user, requirement):
+                    abort(403)
+                    
             return f(*args, **kwargs, userinfo=userinfo, user=user)
 
         wrapper.__name__ = f.__name__
