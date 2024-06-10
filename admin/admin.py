@@ -53,13 +53,15 @@ def infobox_create(user, userinfo):
 @admin.route("/infoboxes/create/submit", methods=["post"])
 @auth.requires_auth(["admin"])
 def infobox_create_submit(user, userinfo):
+    print(request.form["description"])
+    description = request.form["description"].replace("\n", "<br>")
     database = db.get_db()
     database.execute(
         "INSERT INTO infoboxes (name, type, description, categoryid, owner, displayorder) VALUES (?, ?, ?, ?, ?, ?);",
         (
             request.form["name"],
             request.form["type"],
-            request.form["description"],
+            description,
             request.form["categoryid"],
             request.form["owner"],
             request.form["displayorder"],
@@ -116,10 +118,11 @@ def category_create_submit(user, userinfo):
 def infobox_edit(user, userinfo, id):
     links = db.get_db().execute("SELECT * FROM links WHERE infoboxid = ?", (id,))
     infobox = (
-        db.get_db().execute("SELECT * FROM infoboxes WHERE id = ?", (id,)).fetchall()
+        db.get_db().execute("SELECT * FROM infoboxes WHERE id = ?", (id,)).fetchone()
     )
-    if auth.has_permission(user, "admin") or infobox[0]["owner"] == user["id"]:
-        return render_template("infobox_edit.jinja", infobox=infobox, links=links, admin=auth.has_permission(user, "admin"))
+    description = infobox["description"].replace("<br>", "\n")
+    if auth.has_permission(user, "admin") or infobox["owner"] == user["id"]:
+        return render_template("infobox_edit.jinja", infobox=infobox, description=description, links=links, admin=auth.has_permission(user, "admin"))
     else:
         abort(403)
 
