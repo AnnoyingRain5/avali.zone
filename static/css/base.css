@@ -69,6 +69,17 @@
     text-align: center;
 }
 
+.closebutton {
+    text-decoration: none;
+    color: white;
+    position: absolute;
+    right: 5%;
+    top: -0.5%;
+    font-size: larger;
+    padding: 0;
+    margin: 0;
+}
+
 /* Three cheers to Apple for making me do this! */
 body::before {
     content: "";

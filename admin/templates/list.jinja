@@ -13,11 +13,11 @@
             {% for header in headers %}
             <th>{{header[1]}}</th>
             {% endfor %}
-            {% if type == "golink" %}
-            <th>delete</th>
-            {% endif %}
             {% if type == "infoboxes" or type == "categories" %}
             <th>edit</th>
+            {% endif %}
+            {% if type == "golink" or (type == "infoboxes" and admin) or type == "categories" %}
+            <th>delete</th>
             {% endif %}
         </tr>
         {% for item in items %}
@@ -32,8 +32,16 @@
             {% if type == "infoboxes" %}
             <td><a href="/admin/infoboxes/{{item[0]}}/edit">Edit infobox</a></td>
             {% endif %}
+            {% if type == "infoboxes" and admin %}
+            <td><a onclick="return confirm('This will delete the infobox \'{{item[2]}}\', are you sure?')"
+                    href="/admin/infoboxes/{{item[0]}}/delete">Delete infobox</a></td>
+            {% endif %}
             {% if type == "categories" %}
             <td><a href="/admin/categories/{{item[0]}}/edit">Edit category</a></td>
+            {% endif %}
+            {% if type == "categories" %}
+            <td><a onclick="return confirm('This will delete the category \'{{item[1]}}\', are you sure?')"
+                    href="/admin/categories/{{item[0]}}/delete">Delete category</a></td>
             {% endif %}
         </tr>
         {% endfor %}

@@ -36,6 +36,7 @@
     <div class="dock">
         {% for link in links %}
         <div class="pod">
+            <a href="/admin/links/10/delete" class="closebutton">×</a>
             <form action="/admin/links/{{link[0]}}/edit/submit" method="post">
                 <label for="name">Name</label><br>
                 <input type="text" id="name" name="name" value="{{link[1]}}"><br>

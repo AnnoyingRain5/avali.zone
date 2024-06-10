@@ -132,6 +132,24 @@ def category_edit(user, userinfo, id):
     )
     return render_template("category_edit.jinja", category=category)
 
+@admin.route("/categories/<int:id>/delete")
+@auth.requires_auth(["admin"])
+def category_delete(user, userinfo, id):
+    database = db.get_db()
+    database.execute("DELETE FROM categories WHERE id = ?", (id,))
+    database.commit()
+    flash("Done!", "success")
+    return redirect(request.referrer)
+
+@admin.route("/infoboxes/<int:id>/delete")
+@auth.requires_auth(["admin"])
+def infobox_delete(user, userinfo, id):
+    database = db.get_db()
+    database.execute("DELETE FROM infoboxes WHERE id = ?", (id,))
+    database.commit()
+    flash("Done!", "success")
+    return redirect(request.referrer)
+
 
 @admin.route("/categories/<int:id>/edit/submit", methods=["post"])
 @auth.requires_auth(["admin"])
@@ -191,6 +209,23 @@ def link_edit_submit(user, userinfo, id):
         database.execute(
             "UPDATE links SET name = ?, destination = ? WHERE id = ?;",
             (request.form["name"], request.form["destination"], id),
+        )
+    else:
+        abort(403)
+    database.commit()
+    flash("Done!", "success")
+    return redirect(request.referrer)
+
+@admin.route("/links/<int:id>/delete")
+@auth.requires_auth(["manage_own_infoboxes"])
+def link_delete(user, userinfo, id):
+    database = db.get_db()
+    infoboxid = database.execute("SELECT infoboxid from links WHERE id = ?", (id,)).fetchall()[0][0]
+    infoboxOwner = database.execute("SELECT owner from infoboxes WHERE id = ?", (infoboxid,)).fetchall()[0][0]
+    if auth.has_permission(user, "admin") or user["id"] == infoboxOwner:
+        database.execute(
+            "DELETE FROM links WHERE id = ?;",
+            (id,),
         )
     else:
         abort(403)
