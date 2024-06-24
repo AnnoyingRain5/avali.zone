@@ -17,7 +17,7 @@ def requires_auth(requirements: list[str]):
             if not user:
                 # user is not in db
                 database.execute(
-                    "INSERT INTO users VALUES (?, false, false)",
+                    "INSERT INTO users VALUES (?, false, false, false)",
                     (f"GOOGLE_{userinfo['email']}",),
                 )
                 user = database.execute(
