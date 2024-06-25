@@ -4,6 +4,7 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_dance.contrib.google import make_google_blueprint
 import os
 import werkzeug
+from flask_compress import Compress
 
 from scratch import scratch
 from main import main
@@ -22,6 +23,7 @@ app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 3600  # one hour
 app.wsgi_app = ProxyFix(app.wsgi_app)
 db.init_app(app)
+Compress(app)
 
 
 # allow loading all assets from all subdomains
