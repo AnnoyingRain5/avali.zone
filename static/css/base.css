@@ -42,7 +42,7 @@
 /* Modal Content/Box */
 .modal-content {
     backdrop-filter: blur(5px);
-    background-color: #6d6d6d91;
+    background-color: #56566e91;
     margin: 15% auto;
     /* 15% from the top and centered */
     padding: 20px;
@@ -160,8 +160,12 @@ table {
     width: 100%;
 }
 
+a {
+    color:white;
+}
+
 .content {
-    background-color: #6d6d6d91;
+    background-color: #56566e91;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -186,7 +190,7 @@ table {
 }
 
 .navbar {
-    background-color: #6d6d6d77;
+    background-color: #56566e77;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
@@ -214,7 +218,7 @@ table {
 }
 
 .pod {
-    background-color: #8b8b8b3d;
+    background-color: #4e4e633d;
     border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 0.5em;
     backdrop-filter: blur(20px);
