@@ -37,6 +37,10 @@ def apply_caching(response):
 def inject_english_mode():
     return {"fontchoice": request.cookies.get("fontchoice", None)}
 
+@app.context_processor
+def inject_announcements():
+    return {"announcements": db.get_db().execute("SELECT * FROM announcements WHERE enabled").fetchall()}
+
 
 @app.context_processor
 def inject_environment():

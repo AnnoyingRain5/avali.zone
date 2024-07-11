@@ -18,6 +18,11 @@
         {% if environment == "development" %}
         <pre style="text-align:center;">(DEV)</pre>{% endif %}{% block header %}{% endblock header %}
     </div>
+    {% if announcements %}
+    {% for announcement in announcements %}
+    <div class="content flash flash_info">Announcement: {{announcement[1]}}</div>
+    {% endfor %}
+    {% endif %}
     {% block nav_override %}
     <div class="navbar">
         <div class="pod">

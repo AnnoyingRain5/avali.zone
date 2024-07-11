@@ -1,0 +1,23 @@
+{% extends "base.jinja" %}
+
+{% block title %}Admin: Create Announcement {% endblock title %}
+
+{% block header %}
+<h1>Admin: Create Announcement</h1>
+{% endblock header %}
+
+{% block content %}
+<div class="content">
+    <div class="dock">
+        <div class="pod">
+            <form action="create/submit" method="post">
+                <label for="name">Text</label><br>
+                <input type="text" id="text" name="text"><br>
+                <label for="enabled">Enabled</label><br>
+                <input type="checkbox" id="enabled" name="enabled"><br>
+                <input type="submit" value="Submit"><br>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

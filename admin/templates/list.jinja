@@ -13,10 +13,10 @@
             {% for header in headers %}
             <th>{{header[1]}}</th>
             {% endfor %}
-            {% if type == "infoboxes" or type == "categories" %}
+            {% if type == "infoboxes" or type == "categories" or type == "announcements" %}
             <th>edit</th>
             {% endif %}
-            {% if type == "golink" or (type == "infoboxes" and admin) or type == "categories" %}
+            {% if type == "golink" or (type == "infoboxes" and admin) or type == "categories" or type == "announcements" %}
             <th>delete</th>
             {% endif %}
         </tr>
@@ -43,11 +43,18 @@
             <td><a onclick="return confirm('This will delete the category \'{{item[1]}}\', are you sure?')"
                     href="/admin/categories/{{item[0]}}/delete">Delete category</a></td>
             {% endif %}
+            {% if type == "announcements" %}
+                <td><a href="/admin/announcements/{{item[0]}}/edit">Edit announcement</a></td>
+            {% endif %}
+            {% if type == "announcements" %}
+            <td><a onclick="return confirm('This will delete the announcement \'{{item[0]}}\', are you sure?')"
+                    href="/admin/announcements/{{item[0]}}/delete">Delete announcement</a></td>
+            {% endif %}
         </tr>
         {% endfor %}
     </table>
 </div>
-{% if (type == "infoboxes" and admin) or type == "categories" %}
+{% if (type == "infoboxes" and admin) or type == "categories" or type == "announcements" %}
 <div class="content">
     <div class="dock">
         <div class="pod">

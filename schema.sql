@@ -14,6 +14,12 @@ CREATE TABLE categories (
   displayorder NUMBER NOT NULL
 );
 
+CREATE TABLE announcements (
+  id INTEGER PRIMARY KEY,
+  text TEXT,
+  enabled BOOLEAN DEFAULT TRUE
+);
+
 CREATE TABLE infoboxes (
   id INTEGER PRIMARY KEY,
   type TEXT NOT NULL,

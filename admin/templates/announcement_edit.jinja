@@ -1,0 +1,23 @@
+{% extends "base.jinja" %}
+
+{% block title %}Admin: Manage Announcement {{announcement[0]}}{% endblock title %}
+
+{% block header %}
+<h1>Admin: Manage Announcement {{announcement[0]}}</h1>
+{% endblock header %}
+
+{% block content %}
+<div class="content">
+    <div class="dock">
+        <div class="pod">
+            <form action="edit/submit" method="post">
+                <label for="name">Text</label><br>
+                <input type="text" id="text" name="text" value="{{announcement[1]}}"><br>
+                <label for="enabled">Enabled</label><br>
+                <input type="checkbox" id="enabled" name="enabled" {% if announcement[2]%} checked {% endif %}><br>
+                <input type="submit" value="Submit"><br>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

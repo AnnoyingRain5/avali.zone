@@ -259,3 +259,71 @@ def link_create_submit(user, userinfo):
         abort(403)
     flash("Done!", "success")
     return redirect(request.referrer)
+
+@admin.route("/announcements")
+@auth.requires_auth(["admin"])
+def announcements(user, userinfo):
+    headers = db.get_db().execute("PRAGMA table_info(announcements)").fetchall()
+    announcements = (
+        db.get_db()
+        .execute("SELECT * FROM announcements")
+        .fetchall()
+    )
+    admin = True
+    return render_template(
+        "list.jinja", items=announcements, headers=headers, type="announcements", admin=admin
+    )
+
+@admin.route("/announcements/create")
+@auth.requires_auth(["admin"])
+def announcement_create(user, userinfo):
+    return render_template("announcement_create.jinja")
+
+@admin.route("/announcements/create/submit", methods=["post"])
+@auth.requires_auth(["admin"])
+def announcement_create_submit(user, userinfo):
+    database = db.get_db()
+    if request.form.get("enabled", None):
+        enabled = True
+    else:
+        enabled = False
+    database.execute(
+        "INSERT INTO announcements (text, enabled) VALUES (?, ?);",
+        (request.form["text"], enabled),
+    )
+    database.commit()
+    flash("Done!", "success")
+    return redirect(request.referrer)
+
+@admin.route("/announcements/<int:id>/edit")
+@auth.requires_auth(["admin"])
+def announcement_edit(user, userinfo, id):
+    announcement = (
+        db.get_db().execute("SELECT * FROM announcements WHERE id = ?", (id,)).fetchone()
+    )
+    return render_template("announcement_edit.jinja", announcement=announcement)
+
+@admin.route("/announcements/<int:id>/edit/submit", methods=["post"])
+@auth.requires_auth(["admin"])
+def announcement_edit_submit(user, userinfo, id):
+    if request.form.get("enabled", None):
+        enabled = True
+    else:
+        enabled = False
+    database = db.get_db()
+    database.execute(
+        "UPDATE announcements SET text = ?, enabled = ? WHERE id = ?;",
+        (request.form["text"], enabled, id),
+    )
+    database.commit()
+    flash("Done!", "success")
+    return redirect(request.referrer)
+
+@admin.route("/announcements/<int:id>/delete")
+@auth.requires_auth(["admin"])
+def announcement_delete(user, userinfo, id):
+    database = db.get_db()
+    database.execute("DELETE FROM announcements WHERE id = ?", (id,))
+    database.commit()
+    flash("Done!", "success")
+    return redirect(request.referrer)

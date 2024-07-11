@@ -163,18 +163,19 @@ def book():
 @auth.requires_auth([])
 def panel(userinfo, user):
     permissions = {}
+
     if auth.has_permission(user, "golink_approved"):
         permissions["golinks"] = "/go"
-    if auth.has_permission(user, "admin"):
-        permissions["User list"] = "/admin/users"
+
     if auth.has_permission(user, "manage_own_infoboxes"):
         permissions["Manage infoboxes"] = "/admin/infoboxes"
+
     if auth.has_permission(user, "admin"):
+        permissions["User list"] = "/admin/users"
         permissions["Manage (infobox) Categories"] = "/admin/categories"
-    if auth.has_permission(user, "admin"):
         permissions["(Infobox) Link List"] = "/admin/links"
-    if auth.has_permission(user, "admin"):
         permissions["Golink list"] = "/admin/golinks"
+        permissions["Manage Announcements"] = "/admin/announcements"
 
     return render_template("panel.jinja", permissions=permissions, userinfo=userinfo)
 

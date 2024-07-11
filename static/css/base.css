@@ -189,6 +189,10 @@ a {
     background-color: #bc010191;
 }
 
+.flash_info {
+    background-color: #000bd691;
+}
+
 .navbar {
     background-color: #56566e77;
     backdrop-filter: blur(5px);
