@@ -9,7 +9,6 @@
 {% block content %}
     <div class="content">
         <p>Hey {{ userinfo["name"] }}, create your golink below:</p>
-        <p>
         <form action="." method="post">
             <label for="golink">The golink:</label><br>
             https://avali.zone/go/<input required type="text" id="golink" name="golink"><br>
@@ -19,7 +18,7 @@
 
             <input type="submit" value="Submit">
         </form>
-        </p>
+        <br>
     </div>
     <div class="content">
         <p>Golinks you own are listed below:</p>

@@ -58,18 +58,18 @@
     padding: 10px
 }
 
-.modalinputs {
+.modal_inputs {
     display: flex;
     justify-content: center;
     gap: 5%;
 }
 
-.englishmodal {
+.english_modal {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
 }
 
-.closebutton {
+.close_button {
     text-decoration: none;
     color: white;
     position: absolute;
@@ -170,9 +170,7 @@ a {
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    padding: 1em;
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0 1em;
     border-radius: 10px;
     margin-bottom: 0.5em;
 }

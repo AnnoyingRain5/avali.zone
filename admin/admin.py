@@ -177,7 +177,8 @@ def infobox_edit_submit(user, userinfo, id):
     database = db.get_db()
     if auth.has_permission(user, "admin"):
         database.execute(
-            "UPDATE infoboxes SET name = ?, type = ?, description = ?, categoryid = ?, owner = ?, displayorder = ? WHERE id = ?;",
+            "UPDATE infoboxes SET name = ?, type = ?, description = ?, categoryid = ?, owner = ?, displayorder = ? "
+            "WHERE id = ?;",
             (
                 request.form["name"],
                 request.form["type"],
@@ -210,8 +211,8 @@ def infobox_edit_submit(user, userinfo, id):
 @auth.requires_auth(["manage_own_infoboxes"])
 def link_edit_submit(user, userinfo, id):
     database = db.get_db()
-    infoboxid = database.execute("SELECT infoboxid from links WHERE id = ?", (id,)).fetchall()[0][0]
-    infoboxOwner = database.execute("SELECT owner from infoboxes WHERE id = ?", (infoboxid,)).fetchall()[0][0]
+    infobox_id = database.execute("SELECT infoboxid from links WHERE id = ?", (id,)).fetchall()[0][0]
+    infoboxOwner = database.execute("SELECT owner from infoboxes WHERE id = ?", (infobox_id,)).fetchall()[0][0]
     if auth.has_permission(user, "admin") or user["id"] == infoboxOwner:
         database.execute(
             "UPDATE links SET name = ?, destination = ? WHERE id = ?;",
@@ -228,9 +229,9 @@ def link_edit_submit(user, userinfo, id):
 @auth.requires_auth(["manage_own_infoboxes"])
 def link_delete(user, userinfo, id):
     database = db.get_db()
-    infoboxid = database.execute("SELECT infoboxid from links WHERE id = ?", (id,)).fetchall()[0][0]
-    infoboxOwner = database.execute("SELECT owner from infoboxes WHERE id = ?", (infoboxid,)).fetchall()[0][0]
-    if auth.has_permission(user, "admin") or user["id"] == infoboxOwner:
+    infobox_id = database.execute("SELECT infoboxid from links WHERE id = ?", (id,)).fetchall()[0][0]
+    infobox_owner = database.execute("SELECT owner from infoboxes WHERE id = ?", (infobox_id,)).fetchall()[0][0]
+    if auth.has_permission(user, "admin") or user["id"] == infobox_owner:
         database.execute(
             "DELETE FROM links WHERE id = ?;",
             (id,),
@@ -245,19 +246,18 @@ def link_delete(user, userinfo, id):
 @admin.route("/links/create/submit", methods=["post"])
 @auth.requires_auth(["manage_own_infoboxes"])
 def link_create_submit(user, userinfo):
-    infoboxid = None
-    if request.form.get("infoboxid", None):
-        infoboxid = request.form["infoboxid"]
-    elif request.args.get("infoboxid", None):
-        infoboxid = request.args["infoboxid"]
+    if request.form.get("infobox_id", None):
+        infobox_id = request.form["infobox_id"]
+    elif request.args.get("infobox_id", None):
+        infobox_id = request.args["infobox_id"]
     else:
         abort(400)
     database = db.get_db()
-    infoboxOwner = database.execute("SELECT owner from infoboxes WHERE id = ?", (infoboxid,)).fetchall()[0][0]
+    infoboxOwner = database.execute("SELECT owner from infoboxes WHERE id = ?", (infobox_id,)).fetchall()[0][0]
     if auth.has_permission(user, "admin") or user["id"] == infoboxOwner:
         database.execute(
             "INSERT INTO links (name, destination, infoboxid) VALUES (?, ?, ?)",
-            (request.form["name"], request.form["destination"], infoboxid),
+            (request.form["name"], request.form["destination"], infobox_id),
         )
         database.commit()
     else:
@@ -275,9 +275,8 @@ def announcements(user, userinfo):
         .execute("SELECT * FROM announcements")
         .fetchall()
     )
-    admin = True
     return render_template(
-        "list.jinja", items=announcements, headers=headers, type="announcements", admin=admin
+        "list.jinja", items=announcements, headers=headers, type="announcements", admin=True
     )
 
 

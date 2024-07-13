@@ -3,7 +3,6 @@ import random
 import werkzeug
 from flask import render_template, Blueprint, abort, request
 
-wordlist = []
 with open("static/json/wordlist.json") as f:
     wordlist = json.load(f)["wordlist"]
 
@@ -22,11 +21,11 @@ def resources():
     return render_template("scratch/resources.jinja")
 
 
-@scratch.route("/practice/<practicetype>")
-def practice_word(practicetype: str):
-    if practicetype in ["word", "letter"]:
+@scratch.route("/practice/<practice_type>")
+def practice_word(practice_type: str):
+    if practice_type in ["word", "letter"]:
         return render_template(
-            "scratch/practice.jinja", practicetype=practicetype.title()
+            "scratch/practice.jinja", practicetype=practice_type.title()
         )
     else:
         abort(404)
@@ -34,22 +33,21 @@ def practice_word(practicetype: str):
 
 @scratch.route("/internal/Word-sub")
 def word_practice_sub():
-    prompt = ""
     while True:
         prompt = random.choice(wordlist)
-        lastprompt = None
+        last_prompt = None
         try:
-            lastprompt = request.cookies["lastprompt"]
+            last_prompt = request.cookies["lastprompt"]
         except KeyError:
             pass
-        if prompt != lastprompt:
+        if prompt != last_prompt:
             break
     answers = [prompt]
     for _ in range(2):
         while True:
-            tempanswer = random.choice(wordlist)
-            if tempanswer not in answers:
-                answers.append(tempanswer)
+            temp_answer = random.choice(wordlist)
+            if temp_answer not in answers:
+                answers.append(temp_answer)
                 break
     answers.sort()
     return render_template(
@@ -66,22 +64,21 @@ def word_practice_sub():
 
 @scratch.route("/internal/Letter-sub")
 def letter_practice_sub():
-    prompt = ""
     while True:
         prompt = chr(random.choice(list(range(65, 91)) + list(range(48, 58))))
-        lastprompt = None
+        last_prompt = None
         try:
-            lastprompt = request.cookies["lastprompt"]
+            last_prompt = request.cookies["lastprompt"]
         except KeyError:
             pass
-        if prompt != lastprompt:
+        if prompt != last_prompt:
             break
     answers = [prompt]
     for _ in range(2):
         while True:
-            tempanswer = chr(random.randint(65, 90))
-            if tempanswer not in answers:
-                answers.append(tempanswer)
+            temp_answer = chr(random.randint(65, 90))
+            if temp_answer not in answers:
+                answers.append(temp_answer)
                 break
     answers.sort()
     return render_template(

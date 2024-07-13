@@ -9,20 +9,20 @@
 
 <body>
 <div class="content">
-    <div class="questionboxholder">
-        <div class="questionbox">
+    <div class="question_box_holder">
+        <div class="question_box">
             <h1 class="question">{{ prompt }}</h1>
         </div>
     </div>
 
     <div class="dock">
-        <div class="pod" id="answer1" onclick="checkanswer('{{ answers[0] }}', '{{ prompt }}')">
+        <div class="pod" id="answer1" onclick="check_answer('{{ answers[0] }}', '{{ prompt }}')">
             <p>{{ answers[0] }}</p>
         </div>
-        <div class="pod" id="answer2" onclick="checkanswer('{{ answers[1] }}', '{{ prompt }}')">
+        <div class="pod" id="answer2" onclick="check_answer('{{ answers[1] }}', '{{ prompt }}')">
             <p>{{ answers[1] }}</p>
         </div>
-        <div class="pod" id="answer3" onclick="checkanswer('{{ answers[2] }}', '{{ prompt }}')">
+        <div class="pod" id="answer3" onclick="check_answer('{{ answers[2] }}', '{{ prompt }}')">
             <p>{{ answers[2] }}</p>
         </div>
     </div>

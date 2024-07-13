@@ -16,6 +16,10 @@
     <option name="TEMPLATE_FOLDERS">
       <list>
         <option value="$MODULE_DIR$/templates" />
+        <option value="$MODULE_DIR$/go/templates" />
+        <option value="$MODULE_DIR$/scratch/templates" />
+        <option value="$MODULE_DIR$/main/templates" />
+        <option value="$MODULE_DIR$/admin/templates" />
       </list>
     </option>
   </component>

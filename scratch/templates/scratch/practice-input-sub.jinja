@@ -8,8 +8,8 @@
 
 <body>
 <div class="content">
-    <div class="questionboxholder">
-        <div class="questionbox">
+    <div class="question_box_holder">
+        <div class="question_box">
             <h1 class="question">{{ prompt }}</h1>
         </div>
     </div>
@@ -18,7 +18,7 @@
         <div class="pod">
             <input id="answer">
             <button id="submit"
-                    onclick="checkanswer(document.getElementById('answer').value, '{{ prompt }}')">Submit
+                    onclick="check_answer(document.getElementById('answer').value, '{{ prompt }}')">Submit
             </button>
         </div>
     </div>

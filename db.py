@@ -24,7 +24,7 @@ def close_db(e=None):
 def init_db():
     try:
         os.remove("db/db.db")
-    except:
+    except FileNotFoundError:
         pass
     db = get_db()
     with current_app.open_resource("schema.sql") as f:

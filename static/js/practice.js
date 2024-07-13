@@ -1,4 +1,10 @@
-var score = 0
+let score = 0;
+let scoretext;
+let correct;
+let incorrect;
+let milestone_x10;
+let iframe;
+
 
 
 window.onload = init;
@@ -35,7 +41,7 @@ function handleCorrect() {
     correct.play()
     score += 1
     scoretext.innerText = "Score: " + score
-    if (score % 10 == 0) {
+    if (score % 10 === 0) {
         milestone_x10.currentTime = 0
         milestone_x10.play(0)
     }

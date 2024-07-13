@@ -3,9 +3,9 @@ from flask import redirect, Blueprint, request
 util = Blueprint("util", __name__, template_folder="templates", url_prefix="/util")
 
 
-@util.route("/togglelang")
+@util.route("/toggle_lang")
 def togglelang():
-    if request.referrer != None:
+    if request.referrer is not None:
         resp = redirect(request.referrer)
     else:
         resp = redirect("/")

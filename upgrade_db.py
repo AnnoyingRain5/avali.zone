@@ -15,8 +15,8 @@ def upgrade_if_needed():
     scripts = os.listdir("db_upgrade_scripts")
     scripts.sort()
     for script in scripts:
-        scriptver = script[:-4]
-        if int(scriptver) >= version[0]:
+        script_version = script[:-4]
+        if int(script_version) >= version[0]:
             print("upgrading using " + script)
             with open("db_upgrade_scripts/" + script) as f:
                 db.executescript(f.read())

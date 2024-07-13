@@ -82,11 +82,6 @@ def about():
     return render_template("about.jinja")
 
 
-@main.route("/community")
-def community():
-    return render_template("community.jinja")
-
-
 @main.route("/groups")
 def community_groups():
     database = db.get_db()

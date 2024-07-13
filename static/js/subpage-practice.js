@@ -1,18 +1,18 @@
-function checkanswer(answer, correctanswer) {
-    if (answer.toLowerCase() == correctanswer.toLowerCase()) {
-        var event = new CustomEvent('Correct')
+function check_answer(answer, correct_answer) {
+    if (answer.toLowerCase() === correct_answer.toLowerCase()) {
+        let event = new CustomEvent('Correct')
         window.parent.document.dispatchEvent(event)
     } else {
-        var event = new CustomEvent('Incorrect')
+        let event = new CustomEvent('Incorrect')
         window.parent.document.dispatchEvent(event)
-        alert("Incorrect! The correct answer was " + correctanswer)
+        alert("Incorrect! The correct answer was " + correct_answer)
     }
     document.cookie = "lastprompt=" + answer
     location.reload()
 }
 
 function init() {
-    var input = document.getElementById("answer")
+    let input = document.getElementById("answer")
     // if this is an input subpage
     if (input != null) {
         input.value = ""

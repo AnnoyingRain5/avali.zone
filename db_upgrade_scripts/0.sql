@@ -15,7 +15,7 @@ CREATE TABLE infoboxes
     categoryid   NUMBER NOT NULL,
     owner        TEXT   NOT NULL,
     FOREIGN KEY (categoryid) REFERENCES categories (id),
-    FOREIGN KEY (owner) REFERENCES user (id)
+    FOREIGN KEY (owner) REFERENCES users (id)
 );
 
 CREATE TABLE links

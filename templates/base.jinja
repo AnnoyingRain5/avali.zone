@@ -51,10 +51,10 @@
         </div>
         <div class="pod">
             {% if fontchoice == "english" %}
-                <a style="font-family: 'Avali Scratch'; font-size: 150%; " href="/util/togglelang">Prefer Scratch?</a>
+                <a style="font-family: 'Avali Scratch'; font-size: 150%; " href="/util/toggle_lang">Prefer Scratch?</a>
             {% else %}
                 <a style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 16px; "
-                   href="/util/togglelang">Prefer English?</a>
+                   href="/util/toggle_lang">Prefer English?</a>
             {% endif %}
         </div>
     </div>
@@ -73,16 +73,16 @@
 
         <!-- Modal content -->
         <div class="modal-content">
-            <p class="englishmodal">Welcome to avali.zone! Before proceeding, I need to know if you can read avali
+            <p class="english_modal">Welcome to avali.zone! Before proceeding, I need to know if you can read avali
                 scratch or not.</p>
-            <p class="englishmodal"><strong>If you don't know, pick "no".</strong></p>
-            <div class="modalinputs">
+            <p class="english_modal"><strong>If you don't know, pick "no".</strong></p>
+            <div class="modal_inputs">
                 <button
                         onclick="document.cookie = 'fontchoice=english; Max-Age=31536000; path=/'; location.reload()">
                     No, I
                     want english!
                 </button>
-                <button class=englishmodal
+                <button class=english_modal
                         onclick="document.cookie = 'fontchoice=scratch; Max-Age=31536000; path=/'; document.getElementById('WelcomeModal').style.display='none';">
                     Yes,
                     I am fluent!
