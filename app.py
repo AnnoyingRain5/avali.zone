@@ -48,7 +48,7 @@ def inject_environment():
 
 
 # this uses the userinfo.profile scope, which provides:
-# id, name, given_name, picture (which is a url to the profile picture) and locale
+# id, name, given_name, picture (which is a URL to the profile picture) and locale
 googleprint = make_google_blueprint(
     client_id=os.environ.get("GOOGLE_CLIENT_ID"),
     client_secret=os.environ.get("GOOGLE_CLIENT_SECRET"),
@@ -68,9 +68,9 @@ app.register_blueprint(googleprint, url_prefix="/login")
 
 # default error handler
 @app.errorhandler(werkzeug.exceptions.HTTPException)
-def error(error: werkzeug.exceptions.HTTPException):
-    return render_template("error.jinja", error=error)
+def error(exception: werkzeug.exceptions.HTTPException):
+    return render_template("error.jinja", error=exception)
 
 
 if __name__ == "__main__":
-    app.run("0.0.0.0", "9000", debug=True)
+    app.run("0.0.0.0", 9000, debug=True)
