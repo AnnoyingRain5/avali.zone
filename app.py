@@ -15,7 +15,6 @@ from admin import admin
 import db
 import upgrade_db
 
-
 upgrade_db.upgrade_if_needed()
 dotenv.load_dotenv()
 app = Flask(__name__, subdomain_matching=True)
@@ -36,6 +35,7 @@ def apply_caching(response):
 @app.context_processor
 def inject_english_mode():
     return {"fontchoice": request.cookies.get("fontchoice", None)}
+
 
 @app.context_processor
 def inject_announcements():
