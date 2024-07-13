@@ -1,6 +1,7 @@
-from flask import Blueprint, redirect, request, render_template, flash
 import sys
+
 import sqlite3
+from flask import Blueprint, redirect, request, render_template, flash
 
 sys.path.append("..")
 import db
@@ -70,7 +71,7 @@ def delete(golink: str, userinfo, user):
     ).fetchone()
     if golink:
         if db_golink["owner"] == f"GOOGLE_{userinfo['email']}" or auth.has_permission(
-            user, "admin"
+                user, "admin"
         ):
             golink = database.execute(
                 "DELETE FROM golinks WHERE name = ?", (golink,)

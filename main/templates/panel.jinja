@@ -3,31 +3,33 @@
 {% block title %} Panel {% endblock title %}
 
 {% block head %}
-<link rel="me" href="https://meow.social/@AnnoyingRains">
+    <link rel="me" href="https://meow.social/@AnnoyingRains">
 {% endblock head %}
 
 {% block header %}
-<h1>avali.zone panel</h1>
+    <h1>avali.zone panel</h1>
 {% endblock header %}
 {% block content %}
-<div class="content">
-    <p>Welcome to the panel, {{userinfo["name"]}}! You have now logged in, and the options you have available to you are
-        linked below, have
-        fun!</p>
-    <p>Note that the options are for privileged users only (ie: group owners or content creators), so you might not see
-        anything! Please <a href="/contact">contact</a> me if you want access!</p>
-</div>
-
-<div class="content">
-    <div class="dock">
-        {% for perm_name in permissions %}
-        <div class="pod">
-            <a href="{{permissions[perm_name]}}">{{perm_name}}</a>
-        </div>
-        {% endfor %}
-        {% if permissions|length == 0 %}
-        <p>*-- there is nothing here --*</p>
-        {% endif %}
+    <div class="content">
+        <p>Welcome to the panel, {{ userinfo["name"] }}! You have now logged in, and the options you have available to
+            you are
+            linked below, have
+            fun!</p>
+        <p>Note that the options are for privileged users only (ie: group owners or content creators), so you might not
+            see
+            anything! Please <a href="/contact">contact</a> me if you want access!</p>
     </div>
-</div>
+
+    <div class="content">
+        <div class="dock">
+            {% for perm_name in permissions %}
+                <div class="pod">
+                    <a href="{{ permissions[perm_name] }}">{{ perm_name }}</a>
+                </div>
+            {% endfor %}
+            {% if permissions|length == 0 %}
+                <p>*-- there is nothing here --*</p>
+            {% endif %}
+        </div>
+    </div>
 {% endblock content %}

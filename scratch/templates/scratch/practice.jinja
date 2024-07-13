@@ -1,41 +1,41 @@
 {% extends "scratch/base.jinja" %}
 
-{% block title %}{{practicetype}} Practice {% endblock title %}
+{% block title %}{{ practicetype }} Practice {% endblock title %}
 
 {% block description %}
-Learn how to read Avali Scratch with our interactive {{practicetype.lower()}} drills!
+    Learn how to read Avali Scratch with our interactive {{ practicetype.lower() }} drills!
 {% endblock description %}
 
 {% block head %}
-<script src="/static/js/practice.js"></script>
-<audio id="correct">
-    <source src="/static/sounds/correct.mp3" type="audio/mpeg">
-</audio>
-<audio id="incorrect">
-    <source src="/static/sounds/incorrect.mp3" type="audio/mpeg">
-</audio>
-<audio id="milestone_x10">
-    <source src="/static/sounds/milestone_x10.mp3" type="audio/mpeg">
-</audio>
-<link rel="stylesheet" href="/static/css/english.css">
+    <script src="/static/js/practice.js"></script>
+    <audio id="correct">
+        <source src="/static/sounds/correct.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="incorrect">
+        <source src="/static/sounds/incorrect.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="milestone_x10">
+        <source src="/static/sounds/milestone_x10.mp3" type="audio/mpeg">
+    </audio>
+    <link rel="stylesheet" href="/static/css/english.css">
 {% endblock head %}
 
 {% block header %}
-<h1>{{practicetype}} Practice!</h1>
+    <h1>{{ practicetype }} Practice!</h1>
 {% endblock header %}
 {% block content %}
-<div class="content">
-    <div class="dock">
-        <p style="text-align: center;">
-            Tip: You can use the number keys (1,2,3) to select multiple-choice options! <br>
-            You may need to click on the question to focus it for this to work
-        </p>
-        <div class="pod" style="">
-            <p id="score">Score: 0</p>
+    <div class="content">
+        <div class="dock">
+            <p style="text-align: center;">
+                Tip: You can use the number keys (1,2,3) to select multiple-choice options! <br>
+                You may need to click on the question to focus it for this to work
+            </p>
+            <div class="pod" style="">
+                <p id="score">Score: 0</p>
+            </div>
         </div>
-    </div>
 
-    <iframe id="practiceframe" src="/scratch/internal/{{practicetype}}-sub" style="border:none; width: 100%;"
-        scrolling="no"></iframe>
-</div>
+        <iframe id="practiceframe" src="/scratch/internal/{{ practicetype }}-sub" style="border:none; width: 100%;"
+                scrolling="no"></iframe>
+    </div>
 {% endblock content %}

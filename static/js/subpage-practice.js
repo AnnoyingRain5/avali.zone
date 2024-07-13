@@ -2,8 +2,7 @@ function checkanswer(answer, correctanswer) {
     if (answer.toLowerCase() == correctanswer.toLowerCase()) {
         var event = new CustomEvent('Correct')
         window.parent.document.dispatchEvent(event)
-    }
-    else {
+    } else {
         var event = new CustomEvent('Incorrect')
         window.parent.document.dispatchEvent(event)
         alert("Incorrect! The correct answer was " + correctanswer)
@@ -33,11 +32,9 @@ function init() {
         document.addEventListener("keypress", function (event) {
             if (event.key === "1") {
                 document.getElementById("answer1").click()
-            }
-            else if (event.key === "2") {
+            } else if (event.key === "2") {
                 document.getElementById("answer2").click()
-            }
-            else if (event.key === "3") {
+            } else if (event.key === "3") {
                 document.getElementById("answer3").click()
             }
         })

@@ -3,64 +3,66 @@
 {% block title %} {{ type }} List {% endblock title %}
 
 {% block header %}
-<h1>{% if admin %} Admin: {% endif %} {{ type }} List</h1>
+    <h1>{% if admin %} Admin: {% endif %} {{ type }} List</h1>
 {% endblock header %}
 
 {% block content %}
-<div class="content">
-    <table>
-        <tr>
-            {% for header in headers %}
-            <th>{{header[1]}}</th>
+    <div class="content">
+        <table>
+            <tr>
+                {% for header in headers %}
+                    <th>{{ header[1] }}</th>
+                {% endfor %}
+                {% if type == "infoboxes" or type == "categories" or type == "announcements" %}
+                    <th>edit</th>
+                {% endif %}
+                {% if type == "golink" or (type == "infoboxes" and admin) or type == "categories" or type == "announcements" %}
+                    <th>delete</th>
+                {% endif %}
+            </tr>
+            {% for item in items %}
+                <tr>
+                    {% for data in item %}
+                        <td>{{ data }}</td>
+                    {% endfor %}
+                    {% if type == "golink" %}
+                        <td><a onclick="return confirm('This will delete the golink \'{{ item[0] }}\', are you sure?')"
+                               href="/go/{{ item[0] }}/delete">Delete golink</a></td>
+                    {% endif %}
+                    {% if type == "infoboxes" %}
+                        <td><a href="/admin/infoboxes/{{ item[0] }}/edit">Edit infobox</a></td>
+                    {% endif %}
+                    {% if type == "infoboxes" and admin %}
+                        <td><a onclick="return confirm('This will delete the infobox \'{{ item[2] }}\', are you sure?')"
+                               href="/admin/infoboxes/{{ item[0] }}/delete">Delete infobox</a></td>
+                    {% endif %}
+                    {% if type == "categories" %}
+                        <td><a href="/admin/categories/{{ item[0] }}/edit">Edit category</a></td>
+                    {% endif %}
+                    {% if type == "categories" %}
+                        <td>
+                            <a onclick="return confirm('This will delete the category \'{{ item[1] }}\', are you sure?')"
+                               href="/admin/categories/{{ item[0] }}/delete">Delete category</a></td>
+                    {% endif %}
+                    {% if type == "announcements" %}
+                        <td><a href="/admin/announcements/{{ item[0] }}/edit">Edit announcement</a></td>
+                    {% endif %}
+                    {% if type == "announcements" %}
+                        <td>
+                            <a onclick="return confirm('This will delete the announcement \'{{ item[0] }}\', are you sure?')"
+                               href="/admin/announcements/{{ item[0] }}/delete">Delete announcement</a></td>
+                    {% endif %}
+                </tr>
             {% endfor %}
-            {% if type == "infoboxes" or type == "categories" or type == "announcements" %}
-            <th>edit</th>
-            {% endif %}
-            {% if type == "golink" or (type == "infoboxes" and admin) or type == "categories" or type == "announcements" %}
-            <th>delete</th>
-            {% endif %}
-        </tr>
-        {% for item in items %}
-        <tr>
-            {% for data in item %}
-            <td>{{data}}</td>
-            {% endfor %}
-            {% if type == "golink" %}
-            <td><a onclick="return confirm('This will delete the golink \'{{item[0]}}\', are you sure?')"
-                    href="/go/{{item[0]}}/delete">Delete golink</a></td>
-            {% endif %}
-            {% if type == "infoboxes" %}
-            <td><a href="/admin/infoboxes/{{item[0]}}/edit">Edit infobox</a></td>
-            {% endif %}
-            {% if type == "infoboxes" and admin %}
-            <td><a onclick="return confirm('This will delete the infobox \'{{item[2]}}\', are you sure?')"
-                    href="/admin/infoboxes/{{item[0]}}/delete">Delete infobox</a></td>
-            {% endif %}
-            {% if type == "categories" %}
-            <td><a href="/admin/categories/{{item[0]}}/edit">Edit category</a></td>
-            {% endif %}
-            {% if type == "categories" %}
-            <td><a onclick="return confirm('This will delete the category \'{{item[1]}}\', are you sure?')"
-                    href="/admin/categories/{{item[0]}}/delete">Delete category</a></td>
-            {% endif %}
-            {% if type == "announcements" %}
-                <td><a href="/admin/announcements/{{item[0]}}/edit">Edit announcement</a></td>
-            {% endif %}
-            {% if type == "announcements" %}
-            <td><a onclick="return confirm('This will delete the announcement \'{{item[0]}}\', are you sure?')"
-                    href="/admin/announcements/{{item[0]}}/delete">Delete announcement</a></td>
-            {% endif %}
-        </tr>
-        {% endfor %}
-    </table>
-</div>
-{% if (type == "infoboxes" and admin) or type == "categories" or type == "announcements" %}
-<div class="content">
-    <div class="dock">
-        <div class="pod">
-            <a href="/admin/{{type}}/create">Create a new one!</a>
-        </div>
+        </table>
     </div>
-</div>
-{% endif %}
+    {% if (type == "infoboxes" and admin) or type == "categories" or type == "announcements" %}
+        <div class="content">
+            <div class="dock">
+                <div class="pod">
+                    <a href="/admin/{{ type }}/create">Create a new one!</a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 {% endblock content %}

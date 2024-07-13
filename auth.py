@@ -1,5 +1,6 @@
 from flask import abort, render_template
 from flask_dance.contrib.google import google
+
 import db
 
 
@@ -29,7 +30,7 @@ def requires_auth(requirements: list[str]):
             for requirement in requirements:
                 if not has_permission(user, requirement):
                     abort(403)
-                    
+
             return f(*args, **kwargs, userinfo=userinfo, user=user)
 
         wrapper.__name__ = f.__name__

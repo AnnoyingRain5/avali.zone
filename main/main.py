@@ -1,4 +1,6 @@
+import json
 import os
+import requests
 from flask import (
     Blueprint,
     current_app,
@@ -7,8 +9,7 @@ from flask import (
     Response,
     url_for,
 )
-import json
-import requests
+
 import auth
 import db
 
@@ -46,11 +47,11 @@ def sitemap():
             url = url_for(rule.endpoint, **(rule.defaults or {}))
             # ignore some endpoints
             if not (
-                url.startswith("/login")
-                | url.startswith("/admin")
-                | url.startswith("/go")
-                | url.startswith("/util")
-                | url.endswith("-sub")
+                    url.startswith("/login")
+                    | url.startswith("/admin")
+                    | url.startswith("/go")
+                    | url.startswith("/util")
+                    | url.endswith("-sub")
             ):
                 links.append(request.url_root[0:-1] + url)  # slice: remove ending /
     # add missing URLs

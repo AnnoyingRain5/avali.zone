@@ -3,43 +3,43 @@
 {% block title %} Contact {% endblock title %}
 
 {% block header %}
-<h1>Golink</h1>
+    <h1>Golink</h1>
 {% endblock header %}
 
 {% block content %}
-<div class="content">
-    <p>Hey {{userinfo["name"]}}, create your golink below:</p>
-    <p>
-    <form action="." method="post">
-        <label for="golink">The golink:</label><br>
-        https://avali.zone/go/<input required type="text" id="golink" name="golink"><br>
+    <div class="content">
+        <p>Hey {{ userinfo["name"] }}, create your golink below:</p>
+        <p>
+        <form action="." method="post">
+            <label for="golink">The golink:</label><br>
+            https://avali.zone/go/<input required type="text" id="golink" name="golink"><br>
 
-        <label for="location">Redirects to:</label><br>
-        <input required type="text" id="location" name="location"><br>
+            <label for="location">Redirects to:</label><br>
+            <input required type="text" id="location" name="location"><br>
 
-        <input type="submit" value="Submit">
-    </form>
-    </p>
-</div>
-<div class="content">
-    <p>Golinks you own are listed below:</p>
-    <br>
-    <table>
-        <tr>
-            {% for header in ["Golink", "Destination", "Delete"] %}
-            <th>{{header}}</th>
+            <input type="submit" value="Submit">
+        </form>
+        </p>
+    </div>
+    <div class="content">
+        <p>Golinks you own are listed below:</p>
+        <br>
+        <table>
+            <tr>
+                {% for header in ["Golink", "Destination", "Delete"] %}
+                    <th>{{ header }}</th>
+                {% endfor %}
+            </tr>
+            {% for golink in golinks %}
+                <tr>
+                    {% for data in golink %}
+                        <td>{{ data }}</td>
+                    {% endfor %}
+                    <td><a onclick="return confirm('This will delete the golink \'{{ golink[0] }}\', are you sure?')"
+                           href="{{ golink[0] }}/delete">Delete golink</a></td>
+                </tr>
             {% endfor %}
-        </tr>
-        {% for golink in golinks %}
-        <tr>
-            {% for data in golink %}
-            <td>{{data}}</td>
-            {% endfor %}
-            <td><a onclick="return confirm('This will delete the golink \'{{golink[0]}}\', are you sure?')"
-                    href="{{golink[0]}}/delete">Delete golink</a></td>
-        </tr>
-        {% endfor %}
-    </table>
-    <br>
-</div>
+        </table>
+        <br>
+    </div>
 {% endblock content %}

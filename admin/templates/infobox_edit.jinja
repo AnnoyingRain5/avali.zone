@@ -1,65 +1,65 @@
 {% extends "base.jinja" %}
 
-{% block title %} Manage Infobox "{{infobox[2]}}"{% endblock title %}
+{% block title %} Manage Infobox "{{ infobox[2] }}"{% endblock title %}
 
 {% block header %}
-<h1>{% if admin %} Admin: {% endif %} Manage Infobox "{{infobox[2]}}"</h1>
+    <h1>{% if admin %} Admin: {% endif %} Manage Infobox "{{ infobox[2] }}"</h1>
 {% endblock header %}
 
 {% block content %}
-<div class="content">
-    <h2>The infobox:</h2>
-    <div class="dock">
-        <div class="pod">
-            <form action="edit/submit" method="post">
-                <label for="name">Name</label><br>
-                <input type="text" id="name" name="name" value="{{infobox[2]}}"><br>
-                <label for="description">Description</label><br>
-                <textarea id="description" name="description">{{description}}</textarea><br>
-                {% if admin %}
-                <label for="type">Type (eg: "group" or "content" CaSe SeNsItIvE)</label><br>
-                <input type="text" id="type" name="type" value="{{infobox[1]}}"><br>
-                <label for="categoryid">The ID of the category this infobox belongs to</label><br>
-                <input type="text" id="categoryid" name="categoryid" value="{{infobox[5]}}"><br>
-                <label for="owner">The ID of the owner of this infobox</label><br>
-                <input type="text" id="owner" name="owner" value="{{infobox[6]}}"><br>
-                <label for="displayorder">The displayorder (like a priority) of this infobox</label><br>
-                <input type="text" id="displayorder" name="displayorder" value="{{infobox[4]}}"><br><br>
-                {% endif %}
-                <input type="submit" value="Submit"><br>
-            </form>
+    <div class="content">
+        <h2>The infobox:</h2>
+        <div class="dock">
+            <div class="pod">
+                <form action="edit/submit" method="post">
+                    <label for="name">Name</label><br>
+                    <input type="text" id="name" name="name" value="{{ infobox[2] }}"><br>
+                    <label for="description">Description</label><br>
+                    <textarea id="description" name="description">{{ description }}</textarea><br>
+                    {% if admin %}
+                        <label for="type">Type (eg: "group" or "content" CaSe SeNsItIvE)</label><br>
+                        <input type="text" id="type" name="type" value="{{ infobox[1] }}"><br>
+                        <label for="categoryid">The ID of the category this infobox belongs to</label><br>
+                        <input type="text" id="categoryid" name="categoryid" value="{{ infobox[5] }}"><br>
+                        <label for="owner">The ID of the owner of this infobox</label><br>
+                        <input type="text" id="owner" name="owner" value="{{ infobox[6] }}"><br>
+                        <label for="displayorder">The displayorder (like a priority) of this infobox</label><br>
+                        <input type="text" id="displayorder" name="displayorder" value="{{ infobox[4] }}"><br><br>
+                    {% endif %}
+                    <input type="submit" value="Submit"><br>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<div class="content">
-    <h2>Associated Links:</h2>
-    <div class="dock">
-        {% for link in links %}
-        <div class="pod">
-            <a href="/admin/links/10/delete" class="closebutton">×</a>
-            <form action="/admin/links/{{link[0]}}/edit/submit" method="post">
-                <label for="name">Name</label><br>
-                <input type="text" id="name" name="name" value="{{link[1]}}"><br>
-                <label for="name">Destination</label><br>
-                <input type="text" id="destination" name="destination" value="{{link[2]}}"><br><br>
-                <input type="submit" value="Submit"><br>
-            </form>
-        </div>
-        {% endfor %}
-    </div>
-</div>
-<div class="content">
-    <h2>Add a new link:</h2>
-    <div class="dock">
-        <div class="pod">
-            <form action="/admin/links/create/submit?infoboxid={{infobox[0]}}" method="post">
-                <label for="name">Name</label><br>
-                <input type="text" id="name" name="name"><br>
-                <label for="name">Destination</label><br>
-                <input type="text" id="destination" name="destination"><br><br>
-                <input type="submit" value="Submit"><br>
-            </form>
+    <div class="content">
+        <h2>Associated Links:</h2>
+        <div class="dock">
+            {% for link in links %}
+                <div class="pod">
+                    <a href="/admin/links/10/delete" class="closebutton">×</a>
+                    <form action="/admin/links/{{ link[0] }}/edit/submit" method="post">
+                        <label for="name">Name</label><br>
+                        <input type="text" id="name" name="name" value="{{ link[1] }}"><br>
+                        <label for="name">Destination</label><br>
+                        <input type="text" id="destination" name="destination" value="{{ link[2] }}"><br><br>
+                        <input type="submit" value="Submit"><br>
+                    </form>
+                </div>
+            {% endfor %}
         </div>
     </div>
-</div>
+    <div class="content">
+        <h2>Add a new link:</h2>
+        <div class="dock">
+            <div class="pod">
+                <form action="/admin/links/create/submit?infoboxid={{ infobox[0] }}" method="post">
+                    <label for="name">Name</label><br>
+                    <input type="text" id="name" name="name"><br>
+                    <label for="name">Destination</label><br>
+                    <input type="text" id="destination" name="destination"><br><br>
+                    <input type="submit" value="Submit"><br>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

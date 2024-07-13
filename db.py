@@ -1,8 +1,7 @@
 # http://flask.pocoo.org/docs/1.0/tutorial/database/
-import sqlite3
-
 import click
 import os
+import sqlite3
 from flask import current_app, g
 from flask.cli import with_appcontext
 

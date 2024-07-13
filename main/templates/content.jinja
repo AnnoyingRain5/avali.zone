@@ -3,40 +3,40 @@
 {% block title %} Content {% endblock title %}
 
 {% block description %}
-Find a huge amount of unique content created by, and for the Avali community!
+    Find a huge amount of unique content created by, and for the Avali community!
 {% endblock description %}
 
 {% block header %}
-<h1>Avali Content</h1>
+    <h1>Avali Content</h1>
 {% endblock header %}
 
 {% block content %}
-<div class="content">
-    <p>
-        Sadly, Avali content is scattered to the four winds, lost in Discord servers,
-        and ancient subreddit posts, lost to time. <br>
-        This page attempts to fix that, by giving all avali content a centralised home.
-    </p>
-</div>
+    <div class="content">
+        <p>
+            Sadly, Avali content is scattered to the four winds, lost in Discord servers,
+            and ancient subreddit posts, lost to time. <br>
+            This page attempts to fix that, by giving all avali content a centralised home.
+        </p>
+    </div>
 
-{% for category in categories %}
-<div class="content">
-    <h2>{{category['name']}}</h2>
-    <div class="dock">
-        {% for group in groups if group['categoryid'] == category['id'] %}
-        <div class="pod">
-            <h3>{{group['name']}}</h3>
-            <p>{{group['description']}}</p>
+    {% for category in categories %}
+        <div class="content">
+            <h2>{{ category['name'] }}</h2>
             <div class="dock">
-                {% for link in links if link['infoboxid'] == group['id']%}
-                <div class="pod">
-                    <a href='{{link["destination"]}}'>{{link["name"]}}</a>
-                </div>
+                {% for group in groups if group['categoryid'] == category['id'] %}
+                    <div class="pod">
+                        <h3>{{ group['name'] }}</h3>
+                        <p>{{ group['description'] }}</p>
+                        <div class="dock">
+                            {% for link in links if link['infoboxid'] == group['id'] %}
+                                <div class="pod">
+                                    <a href='{{ link["destination"] }}'>{{ link["name"] }}</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
                 {% endfor %}
             </div>
         </div>
-        {% endfor %}
-    </div>
-</div>
-{% endfor %}
+    {% endfor %}
 {% endblock content %}

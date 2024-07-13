@@ -1,26 +1,26 @@
 {% extends "base.jinja" %}
 
-{% block title %}Admin: Manage Category {{category[0][2]}}{% endblock title %}
+{% block title %}Admin: Manage Category {{ category[0][2] }}{% endblock title %}
 
 {% block header %}
-<h1>Admin: Manage Category "{{category[0][2]}}"</h1>
+    <h1>Admin: Manage Category "{{ category[0][2] }}"</h1>
 {% endblock header %}
 
 {% block content %}
-<div class="content">
-    <h2>The category:</h2>
-    <div class="dock">
-        <div class="pod">
-            <form action="edit/submit" method="post">
-                <label for="name">Name</label><br>
-                <input type="text" id="name" name="name" value="{{category[0][1]}}"><br>
-                <label for="type">Type (eg: "group" or "content" CaSe SeNsItIvE)</label><br>
-                <input type="text" id="type" name="type" value="{{category[0][3]}}"><br>
-                <label for="displayorder">The displayorder (like a priority) of this category</label><br>
-                <input type="text" id="displayorder" name="displayorder" value="{{category[0][2]}}"><br><br>
-                <input type="submit" value="Submit"><br>
-            </form>
+    <div class="content">
+        <h2>The category:</h2>
+        <div class="dock">
+            <div class="pod">
+                <form action="edit/submit" method="post">
+                    <label for="name">Name</label><br>
+                    <input type="text" id="name" name="name" value="{{ category[0][1] }}"><br>
+                    <label for="type">Type (eg: "group" or "content" CaSe SeNsItIvE)</label><br>
+                    <input type="text" id="type" name="type" value="{{ category[0][3] }}"><br>
+                    <label for="displayorder">The displayorder (like a priority) of this category</label><br>
+                    <input type="text" id="displayorder" name="displayorder" value="{{ category[0][2] }}"><br><br>
+                    <input type="submit" value="Submit"><br>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 {% endblock content %}

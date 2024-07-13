@@ -1,6 +1,7 @@
 from flask import Blueprint, abort, render_template, request, redirect, flash
-import db
+
 import auth
+import db
 
 admin = Blueprint("admin", __name__, template_folder="templates", url_prefix="/admin")
 
@@ -122,7 +123,8 @@ def infobox_edit(user, userinfo, id):
     )
     description = infobox["description"].replace("<br>", "\n")
     if auth.has_permission(user, "admin") or infobox["owner"] == user["id"]:
-        return render_template("infobox_edit.jinja", infobox=infobox, description=description, links=links, admin=auth.has_permission(user, "admin"))
+        return render_template("infobox_edit.jinja", infobox=infobox, description=description, links=links,
+                               admin=auth.has_permission(user, "admin"))
     else:
         abort(403)
 
@@ -135,6 +137,7 @@ def category_edit(user, userinfo, id):
     )
     return render_template("category_edit.jinja", category=category)
 
+
 @admin.route("/categories/<int:id>/delete")
 @auth.requires_auth(["admin"])
 def category_delete(user, userinfo, id):
@@ -143,6 +146,7 @@ def category_delete(user, userinfo, id):
     database.commit()
     flash("Done!", "success")
     return redirect(request.referrer)
+
 
 @admin.route("/infoboxes/<int:id>/delete")
 @auth.requires_auth(["admin"])
@@ -219,6 +223,7 @@ def link_edit_submit(user, userinfo, id):
     flash("Done!", "success")
     return redirect(request.referrer)
 
+
 @admin.route("/links/<int:id>/delete")
 @auth.requires_auth(["manage_own_infoboxes"])
 def link_delete(user, userinfo, id):
@@ -260,6 +265,7 @@ def link_create_submit(user, userinfo):
     flash("Done!", "success")
     return redirect(request.referrer)
 
+
 @admin.route("/announcements")
 @auth.requires_auth(["admin"])
 def announcements(user, userinfo):
@@ -274,10 +280,12 @@ def announcements(user, userinfo):
         "list.jinja", items=announcements, headers=headers, type="announcements", admin=admin
     )
 
+
 @admin.route("/announcements/create")
 @auth.requires_auth(["admin"])
 def announcement_create(user, userinfo):
     return render_template("announcement_create.jinja")
+
 
 @admin.route("/announcements/create/submit", methods=["post"])
 @auth.requires_auth(["admin"])
@@ -295,6 +303,7 @@ def announcement_create_submit(user, userinfo):
     flash("Done!", "success")
     return redirect(request.referrer)
 
+
 @admin.route("/announcements/<int:id>/edit")
 @auth.requires_auth(["admin"])
 def announcement_edit(user, userinfo, id):
@@ -302,6 +311,7 @@ def announcement_edit(user, userinfo, id):
         db.get_db().execute("SELECT * FROM announcements WHERE id = ?", (id,)).fetchone()
     )
     return render_template("announcement_edit.jinja", announcement=announcement)
+
 
 @admin.route("/announcements/<int:id>/edit/submit", methods=["post"])
 @auth.requires_auth(["admin"])
@@ -318,6 +328,7 @@ def announcement_edit_submit(user, userinfo, id):
     database.commit()
     flash("Done!", "success")
     return redirect(request.referrer)
+
 
 @admin.route("/announcements/<int:id>/delete")
 @auth.requires_auth(["admin"])

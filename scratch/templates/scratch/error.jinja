@@ -1,13 +1,13 @@
 {% extends "scratch/base.jinja" %}
 
-{% block title %}{{error.code}}{% endblock title %}
+{% block title %}{{ error.code }}{% endblock title %}
 
 {% block header %}
-<h1>{{error.code}} - {{error.name}}</h1>
+    <h1>{{ error.code }} - {{ error.name }}</h1>
 {% endblock header %}
 {% block content %}
-<div class="content">
-    <p>Well, that didn't go right...</p>
-    <p>The error description is: "{{error.description}}" Whatever that means...</p>
-</div>
+    <div class="content">
+        <p>Well, that didn't go right...</p>
+        <p>The error description is: "{{ error.description }}" Whatever that means...</p>
+    </div>
 {% endblock content %}

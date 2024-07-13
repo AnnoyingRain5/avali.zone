@@ -1,8 +1,7 @@
-from flask import render_template, Blueprint, abort, request
-import random
 import json
-
+import random
 import werkzeug
+from flask import render_template, Blueprint, abort, request
 
 wordlist = []
 with open("static/json/wordlist.json") as f:

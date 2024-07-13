@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" href="/static/css/base.css">
     {% if fontchoice == "english" %}
-    <link rel="stylesheet" href="/static/css/english.css">
+        <link rel="stylesheet" href="/static/css/english.css">
     {% endif %}
     <link rel=" icon" href="/static/icons/avali.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,16 +14,16 @@
 </head>
 
 <body>
-    <div class="content">
-        {% if environment == "development" %}
+<div class="content">
+    {% if environment == "development" %}
         <pre style="text-align:center;">(DEV)</pre>{% endif %}{% block header %}{% endblock header %}
-    </div>
-    {% if announcements %}
+</div>
+{% if announcements %}
     {% for announcement in announcements %}
-    <div class="content flash flash_info">Announcement: {{announcement[1]}}</div>
+        <div class="content flash flash_info">Announcement: {{ announcement[1] }}</div>
     {% endfor %}
-    {% endif %}
-    {% block nav_override %}
+{% endif %}
+{% block nav_override %}
     <div class="navbar">
         <div class="pod">
             <a href="/">Home</a>
@@ -51,24 +51,24 @@
         </div>
         <div class="pod">
             {% if fontchoice == "english" %}
-            <a style="font-family: 'Avali Scratch'; font-size: 150%; " href="/util/togglelang">Prefer Scratch?</a>
+                <a style="font-family: 'Avali Scratch'; font-size: 150%; " href="/util/togglelang">Prefer Scratch?</a>
             {% else %}
-            <a style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 16px; "
-                href="/util/togglelang">Prefer English?</a>
+                <a style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 16px; "
+                   href="/util/togglelang">Prefer English?</a>
             {% endif %}
         </div>
     </div>
-    {% endblock nav_override %}
+{% endblock nav_override %}
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
+{% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-    {% for category, message in messages %}
-    <div class="content flash flash_{{category}}">{{message}}</div>
-    {% endfor %}
+        {% for category, message in messages %}
+            <div class="content flash flash_{{ category }}">{{ message }}</div>
+        {% endfor %}
     {% endif %}
-    {% endwith %}
+{% endwith %}
 
-    {% if fontchoice == none %}
+{% if fontchoice == none %}
     <div id="WelcomeModal" class="modal" style="display: block;">
 
         <!-- Modal content -->
@@ -78,17 +78,21 @@
             <p class="englishmodal"><strong>If you don't know, pick "no".</strong></p>
             <div class="modalinputs">
                 <button
-                    onclick="document.cookie = 'fontchoice=english; Max-Age=31536000; path=/'; location.reload()">No, I
-                    want english!</button>
+                        onclick="document.cookie = 'fontchoice=english; Max-Age=31536000; path=/'; location.reload()">
+                    No, I
+                    want english!
+                </button>
                 <button class=englishmodal
-                    onclick="document.cookie = 'fontchoice=scratch; Max-Age=31536000; path=/'; document.getElementById('WelcomeModal').style.display='none';">Yes,
-                    I am fluent!</button>
+                        onclick="document.cookie = 'fontchoice=scratch; Max-Age=31536000; path=/'; document.getElementById('WelcomeModal').style.display='none';">
+                    Yes,
+                    I am fluent!
+                </button>
             </div>
         </div>
     </div>
-    {% endif %}
+{% endif %}
 
-    {% block content %}{% endblock content %}
+{% block content %}{% endblock content %}
 </body>
 
 </html>

@@ -3,42 +3,43 @@
 {% block title %} Contact {% endblock title %}
 
 {% block header %}
-<h1>Contact</h1>
+    <h1>Contact</h1>
 {% endblock header %}
 
 {% block content %}
-<div class="content">
-    <p>Please select your reason for contacting me below, fill in the form, then hit submit! You know, normal form
-        stuff...</p>
-    <p>
-    <form action="/contact" method="post">
-        <label for="name">Name (or username, I'm a label not a cop!)</label><br>
-        <input required type="text" id="name" name="name"><br>
+    <div class="content">
+        <p>Please select your reason for contacting me below, fill in the form, then hit submit! You know, normal form
+            stuff...</p>
+        <p>
+        <form action="/contact" method="post">
+            <label for="name">Name (or username, I'm a label not a cop!)</label><br>
+            <input required type="text" id="name" name="name"><br>
 
-        <label for="contact">Contact info: (Discord, Telegram or email)</label><br>
-        <input required type="text" id="contact" name="contact"><br>
+            <label for="contact">Contact info: (Discord, Telegram or email)</label><br>
+            <input required type="text" id="contact" name="contact"><br>
 
-        Reason for contacting <br>
+            Reason for contacting <br>
 
-        <input required type="radio" id="addstuff" name="reason" value="add content or group request">
-        <label for="addstuff">I know of some content or a group that isn't listed!</label><br>
+            <input required type="radio" id="addstuff" name="reason" value="add content or group request">
+            <label for="addstuff">I know of some content or a group that isn't listed!</label><br>
 
-        <input required type="radio" id="addpage" name="reason" value="add page request">
-        <label for="addpage">I want a <a href="about">dedicated page</a> or website for my content or group</label><br>
+            <input required type="radio" id="addpage" name="reason" value="add page request">
+            <label for="addpage">I want a <a href="about">dedicated page</a> or website for my content or
+                group</label><br>
 
-        <input required type="radio" id="suggestion" name="reason" value="suggestion">
-        <label for="suggestion">Suggestion</label><br>
+            <input required type="radio" id="suggestion" name="reason" value="suggestion">
+            <label for="suggestion">Suggestion</label><br>
 
-        <input required type="radio" id="copyright" name="reason" value="copyright request">
-        <label for="copyright">Copyright complaint</label><br>
+            <input required type="radio" id="copyright" name="reason" value="copyright request">
+            <label for="copyright">Copyright complaint</label><br>
 
-        <input required type="radio" id="other" name="reason" value="other">
-        <label for="other">Other</label><br>
+            <input required type="radio" id="other" name="reason" value="other">
+            <label for="other">Other</label><br>
 
-        <label for="message">Message</label><br>
-        <textarea required id="message" name="message"></textarea><br>
-        <input type="submit" value="Submit">
-    </form>
-    </p>
-</div>
+            <label for="message">Message</label><br>
+            <textarea required id="message" name="message"></textarea><br>
+            <input type="submit" value="Submit">
+        </form>
+        </p>
+    </div>
 {% endblock content %}

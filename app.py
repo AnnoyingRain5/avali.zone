@@ -1,19 +1,18 @@
 import dotenv
-from flask import Flask, render_template, request
-from werkzeug.middleware.proxy_fix import ProxyFix
-from flask_dance.contrib.google import make_google_blueprint
 import os
 import werkzeug
+from flask import Flask, render_template, request
 from flask_compress import Compress
-
-from scratch import scratch
-from main import main
-from util import util
-from go import go
-from admin import admin
+from flask_dance.contrib.google import make_google_blueprint
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 import db
 import upgrade_db
+from admin import admin
+from go import go
+from main import main
+from scratch import scratch
+from util import util
 
 upgrade_db.upgrade_if_needed()
 dotenv.load_dotenv()
