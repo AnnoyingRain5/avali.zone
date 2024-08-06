@@ -65,8 +65,11 @@ app.register_blueprint(admin)
 app.register_blueprint(googleprint, url_prefix="/login")
 
 @app.route("/.well-known/host-meta")
-def well_known():
+def well_known_host_meta():
     return redirect("https://social.avali.zone/.well-known/host-meta")
+@app.route("/.well-known/webfinger")
+def well_known_webfinger():
+    return redirect(f"https://social.avali.zone/.well-known/webfinger?{request.query_string.decode()}")
 
 # default error handler
 @app.errorhandler(werkzeug.exceptions.HTTPException)
