@@ -1,7 +1,7 @@
 import dotenv
 import os
 import werkzeug
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from flask_compress import Compress
 from flask_dance.contrib.google import make_google_blueprint
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -64,6 +64,9 @@ app.register_blueprint(go)
 app.register_blueprint(admin)
 app.register_blueprint(googleprint, url_prefix="/login")
 
+@app.route("/.well-known/host-meta")
+def well_known():
+    return redirect("https://social.avali.zone/.well-known/host-meta")
 
 # default error handler
 @app.errorhandler(werkzeug.exceptions.HTTPException)
