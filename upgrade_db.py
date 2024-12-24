@@ -20,6 +20,7 @@ def upgrade_if_needed():
             print("upgrading using " + script)
             with open("db_upgrade_scripts/" + script) as f:
                 db.executescript(f.read())
+            db.commit()
 
     db.commit()
 
