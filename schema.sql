@@ -1,4 +1,4 @@
-PRAGMA user_version = 3;
+PRAGMA user_version = 4;
 
 CREATE TABLE users
 (
