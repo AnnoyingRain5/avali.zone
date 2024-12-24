@@ -14,13 +14,13 @@ from main import main
 from scratch import scratch
 from util import util
 
+app = Flask(__name__, subdomain_matching=True)
+db.init_app(app)
 upgrade_db.upgrade_if_needed()
 dotenv.load_dotenv()
-app = Flask(__name__, subdomain_matching=True)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 3600  # one hour
 app.wsgi_app = ProxyFix(app.wsgi_app)
-db.init_app(app)
 Compress(app)
 
 
