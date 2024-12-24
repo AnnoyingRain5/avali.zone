@@ -119,28 +119,29 @@ def _contact():
         return render_template("contact.jinja")
     else:
         # it's a POST request! Send it to our discord webhook
-        requests.post(
-            os.environ.get("MESSENGER_WEBHOOK_URL"),
-            json={
-                "username": "avali.zone messenger",
-                "avatar_url": f"{request.url_root}/static/icons/avali.png",
-                "content": f"<@{os.environ.get('OWNER_USER_ID')}>",
-                "embeds": [
-                    {
-                        "author": {"name": request.form.get("name")},
-                        "title": f"New {request.form.get('reason')}",
-                        "description": request.form.get("message"),
-                        "fields": [
-                            {
-                                "name": "Contact",
-                                "value": request.form.get("contact"),
-                                "inline": True,
-                            },
-                        ],
-                    }
-                ],
-            },
-        )
+        if request.form.get("reason") != "robot":
+            requests.post(
+                os.environ.get("MESSENGER_WEBHOOK_URL"),
+                json={
+                    "username": "avali.zone messenger",
+                    "avatar_url": f"{request.url_root}/static/icons/avali.png",
+                    "content": f"<@{os.environ.get('OWNER_USER_ID')}>",
+                    "embeds": [
+                        {
+                            "author": {"name": request.form.get("name")},
+                            "title": f"New {request.form.get('reason')}",
+                            "description": request.form.get("message"),
+                            "fields": [
+                                {
+                                    "name": "Contact",
+                                    "value": request.form.get("contact"),
+                                    "inline": True,
+                                },
+                            ],
+                        }
+                    ],
+                },
+            )
         # Done! Now let's give the user a nice page
         return render_template("contact_success.jinja")
 
