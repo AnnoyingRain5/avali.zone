@@ -1,11 +1,12 @@
 import dotenv
+dotenv.load_dotenv()
 import os
 import werkzeug
 from flask import Flask, render_template, request, redirect
 from flask_compress import Compress
-from flask_dance.contrib.google import make_google_blueprint
 from werkzeug.middleware.proxy_fix import ProxyFix
 
+import auth
 import db
 import upgrade_db
 from admin import admin
@@ -17,7 +18,6 @@ from util import util
 app = Flask(__name__, subdomain_matching=True)
 db.init_app(app)
 upgrade_db.upgrade_if_needed()
-dotenv.load_dotenv()
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 3600  # one hour
 app.wsgi_app = ProxyFix(app.wsgi_app)
@@ -48,21 +48,15 @@ def inject_environment():
 
 # this uses the userinfo.profile scope, which provides:
 # id, name, given_name, picture (which is a URL to the profile picture) and locale
-googleprint = make_google_blueprint(
-    client_id=os.environ.get("GOOGLE_CLIENT_ID"),
-    client_secret=os.environ.get("GOOGLE_CLIENT_SECRET"),
-    offline=True,
-    redirect_url="/panel",
-    reprompt_consent=True,
-    scope="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid",
-)
 
 app.register_blueprint(main)
 app.register_blueprint(scratch)
 app.register_blueprint(util)
 app.register_blueprint(go)
 app.register_blueprint(admin)
-app.register_blueprint(googleprint, url_prefix="/login")
+
+app.register_blueprint(auth.pocketid, url_prefix="/login")
+app.register_blueprint(auth.googleprint, url_prefix="/login")
 
 @app.route("/.well-known/host-meta")
 def well_known_host_meta():
