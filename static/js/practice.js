@@ -1,5 +1,8 @@
 let score = 0;
+let pb = 0;
+let practicetype;
 let scoretext;
+let pbtext;
 let correct;
 let incorrect;
 let milestone_x10;
@@ -13,10 +16,14 @@ window.document.addEventListener('Correct', handleCorrect, false)
 
 function init() {
     scoretext = document.getElementById("score")
+    pbtext = document.getElementById("score-pb")
     correct = document.getElementById("correct")
     incorrect = document.getElementById("incorrect")
     milestone_x10 = document.getElementById("milestone_x10")
     iframe = document.getElementById("practiceframe");
+    
+    pb = Number(document.cookie.split("; ").find((row) => row.startsWith(`score-pb-${practicetype}=`))?.split("=")[1]) || 0;
+    practicetype = document.getElementById("practicetype").innerText.toLowerCase().replace(/'/g, "");
 
     iframe.height = iframe.contentWindow.document.body.scrollHeight * 1.2;
 
@@ -30,6 +37,7 @@ window.onresize = function () {
 }
 
 function handleIncorrect() {
+    pbtext.style.fontWeight = "unset"
     incorrect.currentTime = 0
     incorrect.play()
     score = 0
@@ -41,6 +49,12 @@ function handleCorrect() {
     correct.play()
     score += 1
     scoretext.innerText = "Score: " + score
+    if (score > pb) {
+        pb = score
+        pbtext.style.fontWeight = "bold"
+        pbtext.innerText = "Best: " + score
+        document.cookie = `score-pb-${practicetype}=${pb}; Max-Age=31536000; path=/`
+    }
     if (score % 10 === 0) {
         milestone_x10.currentTime = 0
         milestone_x10.play(0)
