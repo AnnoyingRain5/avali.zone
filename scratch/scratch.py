@@ -24,8 +24,15 @@ def resources():
 @scratch.route("/practice/<practice_type>")
 def practice_word(practice_type: str):
     if practice_type in ["word", "letter"]:
+        pb = 0
+        try:
+            pb = request.cookies[f"score-pb-{practice_type}"]
+        except KeyError:
+            pass
         return render_template(
-            "scratch/practice.jinja", practicetype=practice_type.title()
+            "scratch/practice.jinja",
+            practicetype=practice_type.title(),
+            pb=pb
         )
     else:
         abort(404)

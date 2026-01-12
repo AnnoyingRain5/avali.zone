@@ -8,6 +8,7 @@
 
 {% block head %}
     <script src="/static/js/practice.js"></script>
+    <script id="practicetype">'{{ practicetype }}'</script>
     <audio id="correct">
         <source src="/static/sounds/correct.mp3" type="audio/mpeg">
     </audio>
@@ -29,9 +30,15 @@
             <p style="text-align: center;">
                 Tip: You can use the number keys (1,2,3) to select multiple-choice options! <br>
                 You may need to click on the question to focus it for this to work
-            </p>
+            </p>          
+        </div>
+
+        <div class="dock">
             <div class="pod" style="">
                 <p id="score">Score: 0</p>
+            </div>
+            <div class="pod" style="">
+                <p id="score-pb">Best: {{pb}}</p>
             </div>
         </div>
 
