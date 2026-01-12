@@ -64,6 +64,9 @@ def well_known_host_meta():
 @app.route("/.well-known/webfinger")
 def well_known_webfinger():
     return redirect(f"https://social.avali.zone/.well-known/webfinger?{request.query_string.decode()}")
+@app.route("/.well-known/matrix/<page>")
+def well_known_matrix(page):
+    return redirect(f"https://matrix.avali.zone/.well-known/matrix/{page}")
 
 # default error handler
 @app.errorhandler(werkzeug.exceptions.HTTPException)
