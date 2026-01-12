@@ -22,8 +22,8 @@ function init() {
     milestone_x10 = document.getElementById("milestone_x10")
     iframe = document.getElementById("practiceframe");
     
-    pb = Number(document.cookie.split("; ").find((row) => row.startsWith(`score-pb-${practicetype}=`))?.split("=")[1]) || 0;
     practicetype = document.getElementById("practicetype").innerText.toLowerCase().replace(/'/g, "");
+    pb = Number(document.cookie.split("; ").find((row) => row.startsWith(`score-pb-${practicetype}=`))?.split("=")[1]) || 0;
 
     iframe.height = iframe.contentWindow.document.body.scrollHeight * 1.2;
 
